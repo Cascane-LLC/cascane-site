@@ -403,8 +403,7 @@ body::before {
 }
 
 .btn-solid:hover {
-  background-color: var(--accent-cyan);
-  border-color: var(--accent-cyan);
+  opacity: 0.85;
 }
 
 /* ============================================
