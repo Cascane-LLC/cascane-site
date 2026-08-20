@@ -399,6 +399,11 @@ body::before {
   border: 1px solid var(--accent);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-solid:hover {
+  opacity: 0.85;
 }
 
 /* ============================================
