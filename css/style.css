@@ -385,6 +385,28 @@ body::before {
   opacity: 1;
 }
 
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--bg);
+  background-color: var(--accent);
+  margin-top: var(--space-lg);
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-solid:hover {
+  background-color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+}
+
 /* ============================================
    Forms (delete-account request)
    ============================================ */
