@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account — Cascane</title>
+  <meta name="description" content="Request deletion of your Cascane account and data — no sign-in or app download required.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Delete Account — Cascane">
+  <meta property="og:description" content="Request deletion of your Cascane account and data — no sign-in or app download required.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cascane.app/delete-account.html">
+
+  <!-- Google Fonts: Inter 400, 600 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ========== Nav ========== -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="wordmark">Cascane</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html">Terms</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== Delete Account Content ========== -->
+  <main class="page-content section">
+    <div class="container">
+      <span class="section-label">Account</span>
+      <h1 class="section-heading">Delete Your Account</h1>
+      <p class="section-body">You can delete your Cascane account and everything you created on it at any time. This page works without signing in or having the app installed.</p>
+
+      <h2 class="section-heading" style="font-size: var(--fs-xl); margin-top: var(--space-2xl);">In the app</h2>
+      <p class="section-body">If you have the app installed, the fastest way to delete your account is inside it: open <strong>Settings &rarr; Security &rarr; Delete account</strong>. This removes your account immediately.</p>
+
+      <h2 class="section-heading" style="font-size: var(--fs-xl); margin-top: var(--space-2xl);">From the web</h2>
+      <p class="section-body">If you don't have the app, submit a deletion request below and our support team will verify and complete it for you. Once verified, we permanently delete your account and the content you created within 30 days.</p>
+
+      <form
+        name="delete-account"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        action="/delete-account-received"
+        class="delete-form"
+      >
+        <input type="hidden" name="form-name" value="delete-account" />
+        <input type="hidden" name="subject" value="Account Deletion Request" />
+        <p style="display:none">
+          <label>Don't fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <div class="form-field">
+          <label for="email">Account email <span aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+
+        <div class="form-field">
+          <label for="username">Username on Cascane (optional)</label>
+          <input type="text" id="username" name="username" placeholder="@username">
+        </div>
+
+        <div class="form-field">
+          <label for="message">Anything else we should know? (optional)</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="contact-link" style="border:none; cursor:pointer; font-family:var(--font); font-size:var(--fs-base);">Request Account Deletion</button>
+      </form>
+
+      <p class="section-body" style="margin-top: 2.5rem;">You can also email us directly at
+        <a href="mailto:support@cascane.app?subject=Account%20Deletion%20Request">support@cascane.app</a>
+        with the email address on your account, and we'll take it from there.
+      </p>
+
+      <p class="section-body">See our <a href="privacy.html">Privacy Policy</a> for more on how we handle your data.</p>
+    </div>
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; 2026 Cascane LLC. All rights reserved.</span>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      <a href="terms.html" class="footer-link">Terms of Service</a>
+      <a href="delete-account.html" class="footer-link">Delete Account</a>
+    </div>
+  </footer>
+
+</body>
+</html>

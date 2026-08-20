@@ -386,6 +386,47 @@ body::before {
 }
 
 /* ============================================
+   Forms (delete-account request)
+   ============================================ */
+
+.delete-form {
+  max-width: 480px;
+  margin-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.form-field label {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.form-field input,
+.form-field textarea {
+  font-family: var(--font);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  background-color: var(--surface);
+  border: 1px solid var(--muted);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ============================================
    Footer
    ============================================ */
 
