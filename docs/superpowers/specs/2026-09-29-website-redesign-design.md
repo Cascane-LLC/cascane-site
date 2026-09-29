@@ -173,7 +173,7 @@ Section order and content:
    - **Disappearing messages** — Set any message to vanish after 1–24 hours, or keep it forever.
    - **Online now** — See when your friends are around.
 6. **Explore band.** Heading "Find your people." Text covers trending Convos, trending Channels, Popular Voices and hashtags. Visual: an HTML recreation of trending hashtag chips and a mini "Popular Voices" list (§6.2).
-7. **Safety band.** Heading "Built to feel safe." Three cards linking out: "You're in control" (block, mute, hide from Daily) → `/safety`; "Report anything" (six categories, reviewed by our team) → `/safety#reporting`; "Zero tolerance for child exploitation" → `/child-safety`.
+7. **Safety band.** Heading "Built to feel safe." Three cards linking out: "You're in control" (block, mute, hide your Daily from anyone) → `/safety`; "Report anything" (six categories, reviewed by our team) → `/safety#reporting`; "Zero tolerance for child exploitation" → `/child-safety`.
 8. **Download (`#download`).** App icon (96px, cyan radius-22 tile with glow), heading "Your voice belongs in the conversation.", both store badges.
 
 ### 5.3 Features (`/features`)
@@ -193,9 +193,9 @@ The copy is written so it doesn't duplicate the home page's sentences (Google ad
 - Hero: "Safety Center" / "Tools to keep Cascane yours."
 - Principles: three short statements (you choose who hears you; bad actors are removed; your data is yours).
 - **Tools** (cards, each with an icon and 1–2 sentences on how it works in the app):
-  - Block — they can't message you or see your content.
-  - Mute — stop hearing from someone without them knowing.
-  - Hide from Daily — keep someone's posts out of your Daily feed.
+  - Block — you and they stop seeing each other's content, and any follows between you are removed. (Blocking works in both directions: `user_blocks` + `is_blocked()`.)
+  - Mute — stop seeing new messages from someone. They can't tell they've been muted. (Only messages sent after the mute are hidden, and unmuting brings them back: `20260424_timestamp_aware_mute.sql`.)
+  - Hide your Daily — keep your Daily posts from a specific person; they can never tell. (`daily_hides` hides the hider's *own* posts from that person, not the reverse: `20260718053546_hide_daily_messages.sql`.)
   - Private Convos & Channels — only people you invite.
   - Disappearing messages — 1–24 hours, or forever.
   - Delete your account — link to `/delete-account`.
@@ -203,7 +203,7 @@ The copy is written so it doesn't duplicate the home page's sentences (Google ad
 - Child safety summary (2 sentences) → `/child-safety`.
 - Links to Privacy Policy and Terms; contact `support@cascane.app` (subject "Safety").
 
-Every claim here must match app behaviour. Implementation re-checks each tool's exact semantics in the Flutter code (`report_sheet.dart`, the block/mute/hidden-daily repositories) before the copy is final.
+Every claim here must match app behaviour. The semantics above were verified against the migrations on 2026-09-29; the report categories come from `lib/features/shared/widgets/report_sheet.dart`.
 
 ### 5.5 Contact (`/contact`)
 
