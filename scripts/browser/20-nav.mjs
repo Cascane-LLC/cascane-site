@@ -6,6 +6,15 @@ const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 26_0 like Mac OS X) AppleWebK
 const ANDROID = 'Mozilla/5.0 (Linux; Android 16; Pixel 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36';
 
 export async function run({ browser, base }) {
+  // Get the app is visible on phones, where device routing matters most
+  for (const width of [320, 375]) {
+    const { page: p } = await open(browser, base, '/features', { width });
+    const box = await p.$eval('[data-get-app]', (a) => { const r = a.getBoundingClientRect(); return { w: r.width, h: r.height, right: r.right, vis: getComputedStyle(a).display !== 'none' }; });
+    assert.ok(box.vis && box.w > 0 && box.right <= width, `Get the app not visible at ${width}px`);
+    assert.ok(box.h <= 40, `Get the app wraps onto two lines at ${width}px (height ${box.h}px)`);
+    await p.close();
+  }
+
   // Mobile menu
   const { page } = await open(browser, base, '/features', { width: 375, height: 800 });
   assert.equal(await page.$eval('[data-menu]', (m) => m.hidden), true, 'menu starts hidden');
@@ -18,8 +27,14 @@ export async function run({ browser, base }) {
     await page.keyboard.press('Tab');
     assert.ok(await inside(), 'Tab escaped the open menu');
   }
+  assert.ok(await page.evaluate(() => ['[data-nav]', '#main', 'footer'].every((s) => document.querySelector(s).inert)), 'page behind the open menu must be inert');
+  // Clicking blank space then Shift+Tab must not escape the sheet.
+  await page.mouse.click(200, 30);
+  await page.keyboard.down('Shift'); await page.keyboard.press('Tab'); await page.keyboard.up('Shift');
+  assert.ok(await inside(), 'Shift+Tab after clicking blank space escaped the menu');
   await page.keyboard.press('Escape');
   assert.equal(await page.$eval('[data-menu]', (m) => m.hidden), true, 'Esc closes the menu');
+  assert.ok(await page.evaluate(() => !document.querySelector('#main').inert), 'inert removed after closing');
   assert.ok(await page.evaluate(() => document.activeElement?.hasAttribute('data-menu-open')), 'focus returns to the menu button');
   await page.close();
 

@@ -58,7 +58,10 @@ const current = Astro.url.pathname.replace(/\.html$/, '').replace(/^\/index$/, '
   .menu-badges { margin-top: auto; padding-top: 32px; padding-bottom: 40px; }
   :global(body.menu-open) { overflow: hidden; }
   @media (max-width: 859px) {
-    .nav-links, .nav-cta { display: none; }
-    .menu-btn { display: grid; margin-left: auto; }
+    .nav-inner { gap: 10px; }
+    .nav-links { display: none; }
+    /* Get the app stays visible on phones: that's where it routes straight to the right store. */
+    .nav-cta { margin-left: auto; padding: 0 14px; white-space: nowrap; height: 38px; min-height: 0; }
+    .menu-btn { display: grid; }
   }
 </style>

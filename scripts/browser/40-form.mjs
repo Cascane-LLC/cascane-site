@@ -14,5 +14,7 @@ export async function run({ browser, base }) {
   assert.equal(page.url(), url, 'a malformed email must not submit');
   assert.equal(await page.$eval('#email', (el) => el.validity.typeMismatch), true);
   assert.equal(await page.$eval('input[name="bot-field"]', (el) => el.offsetParent === null), true, 'honeypot must be invisible');
+  await page.focus('#email');
+  assert.notEqual(await page.$eval('#email', (el) => getComputedStyle(el).outlineStyle), 'none', 'focused input needs an outline (box-shadow vanishes in forced-colors mode)');
   await page.close();
 }

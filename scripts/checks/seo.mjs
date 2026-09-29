@@ -35,6 +35,7 @@ export default function seo(ctx) {
     doc.querySelectorAll('img').forEach((img) => {
       if (!img.hasAttribute('alt')) errors.push(`${file}: <img src="${img.getAttribute('src')}"> has no alt`);
     });
+    if (file === 'features.html' && !doc.body.textContent.includes('Search people and hashtags')) errors.push('features.html: Explore search claim must match the app (people and hashtags)');
     if (file === 'safety.html') {
       const text = doc.body.textContent;
       for (const phrase of ['Spam or scam', 'Harassment or bullying', 'Hate speech or symbols', 'Violence or threats', 'Inappropriate content', 'Something else']) {

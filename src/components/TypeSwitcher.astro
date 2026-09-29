@@ -54,6 +54,12 @@ const tabs = [
       panels.forEach((p, j) => { p.hidden = i !== j; });
       if (focus) tabs[i].focus();
     };
+    // Drop the phone edge fade once the tab bar is scrolled to its end.
+    const bar = root.querySelector<HTMLElement>('[role="tablist"]');
+    const syncEnd = () => { if (bar) bar.toggleAttribute('data-at-end', bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 2); };
+    bar?.addEventListener('scroll', syncEnd, { passive: true });
+    addEventListener('resize', syncEnd);
+    syncEnd();
     tabs.forEach((t, i) => {
       t.addEventListener('click', () => select(i, false));
       t.addEventListener('keydown', (e) => {
@@ -79,4 +85,13 @@ const tabs = [
   .facts :global(.icon) { color: var(--accent); flex: none; }
   .more { display: inline-flex; align-items: center; gap: 6px; margin-top: 48px; font-weight: 600; }
   @media (max-width: 899px) { .panel { grid-template-columns: minmax(0, 1fr); } }
+  /* Phones: the tab bar scrolls sideways; fade its right edge so the hidden tabs are discoverable. */
+  @media (max-width: 599px) {
+    .tabs { -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent); mask-image: linear-gradient(90deg, #000 80%, transparent); }
+    .tabs[data-at-end] { -webkit-mask-image: none; mask-image: none; }
+  }
+  /* Without JavaScript the tabs can't switch, so show every panel and drop the tab bar. */
+  :global(html:not(.js)) .tabs { display: none; }
+  :global(html:not(.js)) .panel[hidden] { display: grid; }
+  :global(html:not(.js)) .panel + .panel { margin-top: 64px; }
 </style>
