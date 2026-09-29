@@ -3,7 +3,7 @@
 **Date:** 2026-09-29
 **Repo:** `Cascane-LLC/cascane-site` (local: `~/Downloads/cascane-site`)
 **Netlify project:** `cascane-site` → https://www.cascane.app (auto-deploys `main`)
-**Status:** Design approved in brainstorm; this spec awaits review.
+**Status:** Approved by the user 2026-09-29.
 
 ---
 
@@ -148,7 +148,7 @@ Section order and content:
 
 1. **Hero.**
    - Eyebrow: "Voice-first social".
-   - Headline — primary pick **"Conversations you can actually hear."** Alternatives, choose one before implementation: "Say it with your voice." / "Talk like you mean it."
+   - Headline: **"Social, out loud."** (chosen 2026-09-29)
    - Subhead: "Cascane is a social app where every message is a voice. Talk with friends, jump into Convos about anything, and follow the people you want to hear from."
    - Store badges, then a small meta line: "Free on iPhone and Android."
    - Visual: `chat_page` phone on a lit stage, cyan rim glow, float + tilt. Desktop is two columns (text left, phone right, the phone slightly overlapping the next section); mobile stacks the phone under the text.
@@ -354,6 +354,6 @@ Git actions (commits, the first push, the PR, the merge) are taken only with the
 
 ---
 
-## 11. Open items (resolve before implementation starts)
+## 11. Open items
 
-- **Hero headline:** keep "Conversations you can actually hear." or pick an alternative (§5.2).
+None. The hero headline is settled as "Social, out loud." (§5.2).
