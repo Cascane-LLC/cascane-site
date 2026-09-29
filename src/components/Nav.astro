@@ -1,0 +1,64 @@
+---
+import Mark from './Mark.astro';
+import Icon from './Icon.astro';
+import StoreBadges from './StoreBadges.astro';
+
+const links = [
+  { href: '/features', label: 'Features' },
+  { href: '/safety', label: 'Safety' },
+  { href: '/contact', label: 'Contact' },
+];
+const current = Astro.url.pathname.replace(/\.html$/, '').replace(/^\/index$/, '/');
+---
+<header class="nav" data-nav>
+  <div class="container nav-inner">
+    <a href="/" class="brand"><Mark size={28} /><span>Cascane</span></a>
+    <nav class="nav-links" aria-label="Main">
+      {links.map((l) => <a href={l.href} aria-current={current === l.href ? 'page' : undefined}>{l.label}</a>)}
+    </nav>
+    <a href="/#download" class="btn btn-primary btn-sm nav-cta" data-get-app>Get the app</a>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" data-menu-open>
+      <Icon name="menu" /><span class="sr-only">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" hidden data-menu>
+  <div class="container menu-top">
+    <a href="/" class="brand"><Mark size={28} /><span>Cascane</span></a>
+    <button type="button" class="menu-btn" data-menu-close>
+      <Icon name="x" /><span class="sr-only">Close menu</span>
+    </button>
+  </div>
+  <nav class="container menu-links" aria-label="Mobile">
+    <a href="/">Home</a>
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </nav>
+  <div class="container menu-badges"><StoreBadges size="md" /></div>
+</div>
+
+<script>import '../scripts/nav.ts';</script>
+
+<style>
+  .nav { position: fixed; inset: 0 0 auto; z-index: 100; height: var(--nav-h); transition: background-color 0.3s, box-shadow 0.3s; }
+  .nav:global(.is-scrolled) { background: rgba(8, 8, 10, 0.72); backdrop-filter: saturate(160%) blur(20px); -webkit-backdrop-filter: saturate(160%) blur(20px); box-shadow: 0 1px 0 var(--line); }
+  .nav-inner { height: 100%; display: flex; align-items: center; gap: 32px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 650; font-size: 1.125rem; letter-spacing: -0.02em; }
+  .brand :global(img) { border-radius: 8px; }
+  .nav-links { display: flex; gap: 28px; margin-inline: auto; }
+  .nav-links a { font-size: 0.9375rem; color: var(--text-2); transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a[aria-current='page'] { color: var(--text); }
+  .menu-btn { display: none; width: 44px; height: 44px; place-items: center; border-radius: 12px; }
+  .menu { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: flex; flex-direction: column; overflow-y: auto; }
+  .menu[hidden] { display: none; }
+  .menu-top { height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; flex: none; }
+  .menu-top .menu-btn { display: grid; }
+  .menu-links { display: flex; flex-direction: column; gap: 4px; padding-top: 24px; }
+  .menu-links a { font-size: 2rem; font-weight: 650; letter-spacing: -0.02em; padding: 8px 0; }
+  .menu-badges { margin-top: auto; padding-top: 32px; padding-bottom: 40px; }
+  :global(body.menu-open) { overflow: hidden; }
+  @media (max-width: 859px) {
+    .nav-links, .nav-cta { display: none; }
+    .menu-btn { display: grid; margin-left: auto; }
+  }
+</style>

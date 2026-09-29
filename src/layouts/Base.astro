@@ -1,0 +1,29 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Seo from '../components/Seo.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props { title: string; description: string; path: string; noindex?: boolean; jsonLd?: object[] }
+const props = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <Seo {...props} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>import '../scripts/reveal.ts';</script>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+// Every page the site publishes: canonical path and whether Google should index it.
+// PAGES are built on the new design. LEGACY pages are still the verbatim port
+// from Task 1; each page task moves its entry from LEGACY to PAGES *before*
+// rebuilding the page, and Task 7 requires LEGACY to be empty.
+export const PAGES = {
+  'features.html': { path: '/features', indexed: true },
+  'safety.html': { path: '/safety', indexed: true },
+};
+
+export const LEGACY = {
+  'index.html': { path: '/', indexed: true },
+  'contact.html': { path: '/contact', indexed: true },
+  'child-safety.html': { path: '/child-safety', indexed: true },
+  'delete-account.html': { path: '/delete-account', indexed: true },
+  'delete-account-received.html': { path: '/delete-account-received', indexed: false },
+  'privacy.html': { path: '/privacy', indexed: true },
+  'terms.html': { path: '/terms', indexed: true },
+};
