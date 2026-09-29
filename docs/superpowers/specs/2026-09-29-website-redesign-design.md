@@ -228,7 +228,7 @@ Centered card: a check mark in a cyan ring, "Request received", the current two 
 
 ### 5.8 Document layout (Child safety, Privacy, Terms)
 
-- Page header: eyebrow (Safety / Legal), H1, "Last updated" date (Privacy and Terms take it from the Termly body; Child Safety shows its commit date, 2026-08-21).
+- Page header: eyebrow (Safety / Legal), H1, "Last updated" date. Child Safety shows its commit date, 2026-08-21. **Privacy and Terms are different:** their Termly bodies already contain an `<h1>` ("PRIVACY POLICY" / "TERMS OF SERVICE") and a "Last updated" line. The page header therefore shows only the eyebrow, and Termly's own `<h1>` and date, restyled, act as the page title (exactly one `<h1>` per page, legal text untouched).
 - Two columns on ≥1024px: a sticky "On this page" table of contents (the page's H2s, current section highlighted via `IntersectionObserver`) and the 720px reading column. Single column with a collapsible TOC on mobile.
 - **Termly re-skin (Privacy, Terms):** the body HTML is moved verbatim into `src/content/legal/privacy.html` / `terms.html` and rendered with `set:html`. The page's own stylesheet overrides the inline styles scoped under `.legal`: `color`, `font-family`, `font-size` and `line-height` set with `!important` on `.legal *`. That wins over non-important inline styles, so none of the ~1,200 inline style attributes need editing. Link color → `--accent`; tables get dark borders; lists keep their square/circle markers. Both Termly bodies contain their own "TABLE OF CONTENTS" (verified), which stays; the sticky TOC is therefore omitted on these two pages to avoid two TOCs. The sticky TOC appears on Child Safety only.
 - Verification (§9) diffs the visible text of the old and new legal bodies to prove they are unchanged.
@@ -306,6 +306,10 @@ cascane-site/
 - Each component has one job and receives its data through props. Pages compose components and hold the page's copy.
 - Client JS is plain TypeScript bundled by Astro and loaded only on pages that use it. There are no UI-framework runtimes (no React/Vue). Target: under 10 KB of JS on the home page after gzip.
 - `netlify.toml`: `[build] command = "npm run build"`, `publish = "dist"`, `[build.environment] NODE_VERSION = "22"`. No redirect rules (constraint §2.1).
+- `astro.config.mjs` sets **`compressHTML: false`**. Astro 7's HTML compression deletes the newline between text and an inline element that starts on the next source line, which glued "at" to the link in "email us directly at support@cascane.app" (found in the 2026-09-29 spike). Netlify compresses responses anyway, so nothing is lost.
+- Line icons come from `lucide-static` (ISC licence), inlined via an `Icon` component so they inherit `currentColor`.
+
+**Known pre-existing issues in the Termly Terms text (left untouched, per constraint §2.3):** 9 in-page links point to anchors that don't exist (`#products #software #reviews #socialmedia #thirdparty #advertisers #ppyes #ppno #dmca`), and its table of contents skips section 20. The link checker tolerates exactly those 9 on `terms.html` and nothing else. Fixing them means regenerating the Terms in Termly, which is a separate decision for the user.
 - The old root `*.html` files and `css/style.css` are removed in the same change; their content lives on in `src/`.
 
 ---
@@ -332,7 +336,8 @@ Additionally, before the preview:
 
 **On the Netlify Deploy Preview** (a draft PR from branch `redesign-astro`):
 - `curl -sI` every legacy path in §2.1: 200 and correct content.
-- One test submission of the delete-account form (email `test+deletion-form@cascane.app`, message "TEST — ignore"). Confirm it appears under Netlify Forms and that the browser lands on the "Request received" page. The user then deletes the test entry.
+- One test submission of the delete-account form (email `test+deletion-form@cascane.app`, message "TEST — ignore"). Confirm it appears under Netlify Forms (form id `6a86f337dcbe280008dec5fe`, which already has 1 real submission from 2026-08-20) and that the browser lands on the "Request received" page. The test submission is then deleted through the Netlify connection (`manage-form-submissions` → `delete-submission`); only the test entry is touched.
+- The form's field list reported by Netlify after the preview must still be exactly `subject, bot-field, email, username, message`.
 - Confirm the preview responds with an `X-Robots-Tag: noindex` header (to be checked on the real preview, not assumed).
 - The user reviews the preview URL. Merging to `main` happens only on explicit go-ahead.
 
@@ -343,7 +348,7 @@ Additionally, before the preview:
 1. Branch `redesign-astro` in `cascane-site`.
 2. Implement per the plan (writing-plans produces it from this spec).
 3. `verify.mjs` + Lighthouse pass locally.
-4. Push the branch and open a **draft PR** → Netlify builds a Deploy Preview (unlisted URL; not password-protected).
+4. Push the branch and open a **draft PR** → Netlify builds a Deploy Preview (unlisted URL; not password-protected). This repo has never had a PR, so it is unproven that Deploy Previews are on. If no preview appears within 10 minutes, the user turns on Deploy Previews in Netlify (Project configuration → Build & deploy → Continuous deployment → Deploy Previews → "Any pull request against your production branch"). Note that the GitHub repo is public, so the branch's source is visible once pushed. Optionally, previews can be password-protected through the Netlify connection (`update-visitor-access-controls`, `appliesTo: non-production-projects`), if the user wants it and their plan allows it.
 5. Run the preview checks (§9) and send the user the URL.
 6. On the user's go-ahead, merge to `main`, then re-run the legacy-URL `curl` checks against https://www.cascane.app.
 7. The user submits the sitemap in Search Console.
