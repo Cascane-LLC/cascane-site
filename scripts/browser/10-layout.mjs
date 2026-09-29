@@ -17,6 +17,14 @@ export async function run({ browser, base, screens }) {
       // The 404 page's own document response is a 404, which Chrome logs as a resource error.
       const real = errors.filter((e) => !(path === '/404' && e.includes('404')));
       assert.deepEqual(real, [], `${path} at ${width}px logged errors`);
+      if (screens) {
+        // Scroll through the page so lazy-loaded images load before the full-page capture.
+        await page.evaluate(async () => {
+          for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); }
+          window.scrollTo(0, 0);
+        });
+        await page.waitForNetworkIdle({ idleTime: 300 });
+      }
       if (screens) await page.screenshot({ path: `.artifacts/screens/${file.replace('.html', '')}-${width}.png`, fullPage: true });
       await page.close();
     }

@@ -5,6 +5,8 @@ const canonical = (path) => (path === '/' ? `${SITE}/` : `${SITE}${path}`);
 
 export default function seo(ctx) {
   const errors = [];
+  if (Object.keys(LEGACY).length) errors.push(`pages still on the old design: ${Object.keys(LEGACY).join(', ')}`);
+  if (ctx.exists('css/style.css')) errors.push('old stylesheet css/style.css is still published');
   const titles = new Map();
   const descriptions = new Map();
   for (const f of ctx.htmlFiles()) if (!PAGES[f] && !LEGACY[f]) errors.push(`${f}: published but not listed in scripts/checks/pages.mjs`);

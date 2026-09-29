@@ -3,6 +3,7 @@
 // from Task 1; each page task moves its entry from LEGACY to PAGES *before*
 // rebuilding the page, and Task 7 requires LEGACY to be empty.
 export const PAGES = {
+  'index.html': { path: '/', indexed: true },
   'features.html': { path: '/features', indexed: true },
   'safety.html': { path: '/safety', indexed: true },
   'terms.html': { path: '/terms', indexed: true },
@@ -15,5 +16,4 @@ export const PAGES = {
 };
 
 export const LEGACY = {
-  'index.html': { path: '/', indexed: true },
 };

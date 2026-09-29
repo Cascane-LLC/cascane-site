@@ -1,0 +1,22 @@
+---
+import Mark from './Mark.astro';
+import StoreBadges from './StoreBadges.astro';
+
+interface Props { id?: string; heading: string; text?: string }
+const { id, heading, text } = Astro.props;
+---
+<section class="section band" id={id}>
+  <div class="container inner">
+    <div class="mark"><Mark size={96} /></div>
+    <h2 class="h2" data-reveal>{heading}</h2>
+    {text && <p class="lead" data-reveal style="--i:1">{text}</p>}
+    <StoreBadges />
+  </div>
+</section>
+<style>
+  .band { position: relative; overflow: hidden; }
+  .band::before { content: ''; position: absolute; left: 50%; top: 45%; width: 900px; height: 600px; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(0, 217, 255, 0.12), rgba(0, 217, 255, 0) 70%); pointer-events: none; }
+  .inner { position: relative; display: grid; justify-items: center; text-align: center; gap: 20px; }
+  .mark :global(img) { border-radius: 22px; box-shadow: 0 0 60px rgba(0, 217, 255, 0.35); }
+  .inner .h2 { max-width: 760px; }
+</style>
