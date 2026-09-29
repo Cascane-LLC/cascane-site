@@ -12,7 +12,8 @@
     "verify": "node scripts/verify.mjs",
     "check": "npm run build && npm run verify && npm test && npm run browser",
     "test": "node --test \"tests/**/*.test.ts\"",
-    "browser": "node scripts/browser-check.mjs"
+    "browser": "node scripts/browser-check.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
