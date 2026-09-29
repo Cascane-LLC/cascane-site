@@ -32,11 +32,6 @@ AVATAR_CENTRES = {
 AVATAR_RADIUS = 80
 AVATAR_SIZE = 160
 
-# A "photo" for the photo-attachment illustration: the Starspace channel artwork
-# in channel_info_page.png, cropped square from inside its grey circle.
-PHOTO_BOX = (577, 930, 767, 1120)  # 190 x 190
-PHOTOS = ROOT / 'src/assets/photos'
-
 
 def rounded_mask(size, radius, inset=0):
     w, h = size
@@ -92,16 +87,7 @@ def icons():
     print('icons ok')
 
 
-def photos():
-    PHOTOS.mkdir(parents=True, exist_ok=True)
-    with Image.open(STORE / 'channel_info_page.png') as src:
-        art = src.convert('RGB').crop(PHOTO_BOX)
-    art.save(PHOTOS / 'starspace.png', optimize=True)
-    print('photo starspace', art.size)
-
-
 if __name__ == '__main__':
     screens()
     avatars()
     icons()
-    photos()

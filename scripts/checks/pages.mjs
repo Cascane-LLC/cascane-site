@@ -13,8 +13,6 @@ export const PAGES = {
   'delete-account.html': { path: '/delete-account', indexed: true },
   'delete-account-received.html': { path: '/delete-account-received', indexed: false },
   '404.html': { path: '/404', indexed: false },
-  // TEMPORARY: details-section design comparison; remove with the page.
-  'details-options.html': { path: '/details-options', indexed: false },
 };
 
 export const LEGACY = {
