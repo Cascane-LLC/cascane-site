@@ -1,0 +1,40 @@
+---
+import Base from './Base.astro';
+import Toc from '../components/Toc.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  eyebrow: string;
+  heading?: string;                       // omitted on legal pages: the Termly body has its own <h1>
+  updated?: string;
+  toc?: { id: string; text: string }[];
+}
+const { eyebrow, heading, updated, toc = [], ...seo } = Astro.props;
+---
+<Base {...seo}>
+  <header class="container page-top doc-head">
+    <p class="eyebrow">{eyebrow}</p>
+    {heading && <h1 class="display-sm">{heading}</h1>}
+    {updated && <p class="doc-updated">Last updated {updated}</p>}
+  </header>
+  <div class:list={['container', 'doc-grid', { 'has-toc': toc.length > 0 }]}>
+    {toc.length > 0 && <Toc items={toc} />}
+    <article class="doc-body" data-doc-body><slot /></article>
+  </div>
+</Base>
+<style>
+  .doc-head { display: grid; gap: 16px; padding-bottom: 40px; }
+  .doc-updated { color: var(--text-3); font-size: 0.9375rem; }
+  /* Divider inset by the gutters so it aligns with the content. */
+  .doc-grid { padding-top: 40px; background: linear-gradient(var(--line), var(--line)) no-repeat center top / calc(100% - 2 * var(--gutter)) 1px; padding-bottom: var(--section); }
+  .doc-grid.has-toc { display: grid; grid-template-columns: 220px minmax(0, var(--read)); gap: 64px; align-items: start; }
+  .doc-body { max-width: var(--read); min-width: 0; }
+  .doc-body :global(h2) { font-size: 1.5rem; font-weight: 650; letter-spacing: -0.02em; line-height: 1.25; margin: 2.5rem 0 0.75rem; scroll-margin-top: calc(var(--nav-h) + 24px); }
+  .doc-body > :global(p) { color: var(--text-2); font-size: 1.0625rem; line-height: 1.75; }
+  .doc-body > :global(p + p) { margin-top: 1rem; }
+  .doc-body :global(a) { color: var(--accent); }
+  .doc-body :global(a:hover) { text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 1023px) { .doc-grid.has-toc { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+</style>

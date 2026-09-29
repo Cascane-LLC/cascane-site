@@ -1,0 +1,29 @@
+---
+interface Props { items: { id: string; text: string }[] }
+const { items } = Astro.props;
+---
+<nav class="toc" aria-label="On this page" data-toc>
+  <details open>
+    <summary>On this page</summary>
+    <ol>
+      {items.map((i) => <li><a href={`#${i.id}`} data-toc-link={i.id}>{i.text}</a></li>)}
+    </ol>
+  </details>
+</nav>
+<script>import '../scripts/toc.ts';</script>
+<style>
+  .toc { position: sticky; top: calc(var(--nav-h) + 24px); }
+  summary { cursor: pointer; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); list-style: none; padding: 8px 0; }
+  summary::-webkit-details-marker { display: none; }
+  ol { list-style: none; padding: 0; margin-top: 8px; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+  a { display: block; padding: 6px 0 6px 16px; margin-left: -1px; border-left: 1px solid transparent; color: var(--text-2); font-size: 0.9375rem; transition: color 0.2s, border-color 0.2s; }
+  a:hover { color: var(--text); }
+  a[aria-current='location'] { color: var(--text); border-left-color: var(--accent); }
+  @media (min-width: 1024px) { summary { pointer-events: none; } }
+  @media (max-width: 1023px) {
+    .toc { position: static; background: var(--surface-1); border-radius: 16px; padding: 8px 16px; box-shadow: inset 0 0 0 1px var(--line); }
+    summary { display: flex; align-items: center; justify-content: space-between; }
+    summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid var(--text-3); border-bottom: 2px solid var(--text-3); transform: rotate(45deg) translateY(-3px); transition: transform 0.2s; }
+    details[open] summary::after { transform: rotate(-135deg) translateX(-3px); }
+  }
+</style>

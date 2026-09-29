@@ -5,14 +5,14 @@
 export const PAGES = {
   'features.html': { path: '/features', indexed: true },
   'safety.html': { path: '/safety', indexed: true },
+  'terms.html': { path: '/terms', indexed: true },
+  'privacy.html': { path: '/privacy', indexed: true },
+  'child-safety.html': { path: '/child-safety', indexed: true },
 };
 
 export const LEGACY = {
   'index.html': { path: '/', indexed: true },
   'contact.html': { path: '/contact', indexed: true },
-  'child-safety.html': { path: '/child-safety', indexed: true },
   'delete-account.html': { path: '/delete-account', indexed: true },
   'delete-account-received.html': { path: '/delete-account-received', indexed: false },
-  'privacy.html': { path: '/privacy', indexed: true },
-  'terms.html': { path: '/terms', indexed: true },
 };
