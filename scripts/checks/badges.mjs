@@ -16,6 +16,9 @@ export default function badges(ctx) {
     doc.querySelectorAll('[data-store-badges]').forEach((group, n) => {
       const links = [...group.querySelectorAll('a.store-badge')];
       const hrefs = links.map((a) => a.getAttribute('href'));
+      for (const l of links) {
+        if (l.getAttribute('target') !== '_blank' || !/\bnoopener\b/.test(l.getAttribute('rel') ?? '')) errors.push(`${file}: store badge ${l.getAttribute('href')} must open in a new tab (target=_blank rel=noopener)`);
+      }
       if (JSON.stringify(hrefs) !== JSON.stringify([APPLE, GOOGLE])) errors.push(`${file}: badge group ${n} is ${JSON.stringify(hrefs)}; expected App Store then Google Play`);
       const [a, g] = links.map((l) => l.querySelector('img'));
       if (!a || !g) return;
