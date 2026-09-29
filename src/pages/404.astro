@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found · Cascane" description="This page doesn't exist on cascane.app. Head back to the Cascane homepage, or contact us if something looks broken." path="/404" noindex>
+  <section class="container page-top section nf">
+    <svg class="flatline" viewBox="0 0 600 80" aria-hidden="true">
+      <path d="M0 40 H250 L262 22 L274 58 L286 40 H600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <p class="eyebrow">404</p>
+    <h1 class="display">Lost signal.</h1>
+    <p class="lead">We couldn't find that page. It may have moved, or the link might be wrong.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">Go home</a>
+      <a class="btn btn-secondary" href="/contact">Contact us</a>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { display: grid; gap: 20px; justify-items: center; text-align: center; }
+  .flatline { width: min(600px, 100%); color: var(--accent); stroke-dasharray: 700; stroke-dashoffset: 700; animation: draw 1.6s var(--ease) forwards; filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.5)); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
+</style>

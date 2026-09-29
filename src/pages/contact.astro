@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { SUPPORT_EMAIL } from '../lib/site.ts';
+
+const cards = [
+  { icon: 'mail', title: 'Support', text: 'Questions about your account, the app, or anything else.', subject: 'Support' },
+  { icon: 'shield-check', title: 'Safety reports', text: 'Report abuse, harassment, or anything that breaks our rules. Include as much detail as you can.', subject: 'Safety Report' },
+];
+---
+<Base title="Contact · Cascane" description="Get in touch with Cascane LLC, the team behind Cascane, a voice-first social messaging app. Support and safety reports: support@cascane.app." path="/contact">
+  <section class="container page-top head">
+    <p class="eyebrow" data-reveal>Contact</p>
+    <h1 class="display-sm" data-reveal style="--i:1">We'd love to hear from you.</h1>
+    <p class="lead" data-reveal style="--i:2">Have questions or want to learn more about Cascane? Reach out and we'll get back to you.</p>
+  </section>
+  <section class="container section grid-wrap">
+    <ul class="grid">
+      {cards.map((c, i) => (
+        <li class="card contact" data-reveal style={`--i:${i}`}>
+          <span class="icon-tile"><Icon name={c.icon} size={22} /></span>
+          <h2 class="h3">{c.title}</h2>
+          <p>{c.text}</p>
+          <a class="link email" href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(c.subject)}`}>{SUPPORT_EMAIL}</a>
+        </li>
+      ))}
+      <li class="card contact" data-reveal style="--i:2">
+        <span class="icon-tile"><Icon name="map-pin" size={22} /></span>
+        <h2 class="h3">Mail</h2>
+        <address>Cascane LLC<br />522 W Riverside Ave Ste N<br />Spokane, WA 99201<br />United States</address>
+      </li>
+    </ul>
+    <p class="note muted">For urgent child-safety concerns, see our <a class="link" href="/child-safety">Child Safety Standards</a>.</p>
+  </section>
+</Base>
+<style>
+  .head { display: grid; gap: 20px; }
+  .head > * { max-width: 760px; }
+  .grid-wrap { padding-top: 64px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .contact { padding: 28px; display: grid; gap: 12px; align-content: start; }
+  .contact p, address { color: var(--text-2); font-style: normal; }
+  .email { font-weight: 600; margin-top: 4px; }
+  .icon-tile { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; color: var(--accent); background: rgba(0, 217, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(0, 217, 255, 0.2); margin-bottom: 4px; }
+  .note { margin-top: 32px; }
+  @media (max-width: 899px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

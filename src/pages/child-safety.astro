@@ -1,0 +1,35 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+
+const toc = [
+  { id: 'prohibited', text: "What's prohibited" },
+  { id: 'reporting', text: 'How to report it' },
+  { id: 'next-steps', text: 'What happens next' },
+  { id: 'contact', text: 'Point of contact' },
+];
+---
+<DocLayout
+  title="Child Safety Standards · Cascane"
+  description="Cascane's published standards against child sexual abuse and exploitation (CSAE), how to report it, and what happens next."
+  path="/child-safety"
+  eyebrow="Safety"
+  heading="Child Safety Standards"
+  updated="August 21, 2026"
+  toc={toc}
+>
+  <p>Cascane has zero tolerance for child sexual abuse and exploitation (CSAE), including child sexual abuse material (CSAM), anywhere on our platform. This applies to every account, every message, and every piece of content on Cascane, without exception.</p>
+
+  <h2 id="prohibited">What's prohibited</h2>
+  <p>Users may not upload, share, request, solicit, or link to CSAE or CSAM in any form on Cascane. This includes content involving real or apparently real minors, as well as attempts to groom, sexualize, or endanger a minor through the app. Accounts used for these purposes are removed, regardless of where the account holder is located or the age they claim to be.</p>
+
+  <h2 id="reporting">How to report it</h2>
+  <p>If you encounter CSAE or CSAM on Cascane, report it directly from the app using the report option on the message, thread, or profile in question. You can also email us directly at <a href="mailto:support@cascane.app?subject=Child%20Safety%20Report">support@cascane.app</a> with as much detail as you can provide. You do not need an account to report a concern this way.</p>
+
+  <h2 id="next-steps">What happens next</h2>
+  <p>We review CSAE reports as a priority. Where a report is substantiated, we remove the content, permanently ban the account, and report the incident to the National Center for Missing &amp; Exploited Children (NCMEC) as required by law.</p>
+
+  <h2 id="contact">Point of contact</h2>
+  <p>Our child safety point of contact is <a href="mailto:support@cascane.app?subject=Child%20Safety">support@cascane.app</a>.</p>
+
+  <p>See our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms of Service</a> for more on how we handle content and accounts on Cascane.</p>
+</DocLayout>

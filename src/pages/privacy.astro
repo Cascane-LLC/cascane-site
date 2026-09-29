@@ -1,0 +1,13 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import body from '../content/legal/privacy.html?raw';
+import '../styles/legal.css';
+---
+<DocLayout
+  title="Privacy Policy · Cascane"
+  description="Privacy policy for Cascane, the voice-first social messaging app by Cascane LLC: what we collect, how we use it, and your choices."
+  path="/privacy"
+  eyebrow="Legal"
+>
+  <div class="legal"><Fragment set:html={body} /></div>
+</DocLayout>

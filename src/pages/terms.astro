@@ -1,0 +1,13 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+import body from '../content/legal/terms.html?raw';
+import '../styles/legal.css';
+---
+<DocLayout
+  title="Terms of Service · Cascane"
+  description="The Terms of Service for Cascane, the voice-first social messaging app by Cascane LLC, covering your use of the app and its services."
+  path="/terms"
+  eyebrow="Legal"
+>
+  <div class="legal"><Fragment set:html={body} /></div>
+</DocLayout>

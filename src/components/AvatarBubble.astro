@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props { src: ImageMetadata; size?: number; ring?: 'new' | 'seen'; online?: boolean }
+const { src, size = 44, ring = 'seen', online = false } = Astro.props;
+---
+<span class:list={['bubble', `ring-${ring}`]} style={`--s:${size}px`}>
+  <Image src={src} alt="" width={size} height={size} densities={[1, 2]} />
+  {online && <span class="online"></span>}
+</span>
+<style>
+  .bubble { position: relative; flex: none; display: inline-grid; place-items: center; width: calc(var(--s) + 8px); height: calc(var(--s) + 8px); border-radius: 50%; }
+  .bubble::before { content: ''; position: absolute; inset: 0; border-radius: 50%; padding: 2px; background: #3A3A40; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  /* The app's "unlistened" ring: green -> cyan -> shimmer -> cyan -> green, rotated 45deg. */
+  .ring-new::before { background: conic-gradient(from 45deg, var(--accent-3), var(--accent), var(--accent-2), var(--accent), var(--accent-3)); }
+  .bubble :global(img) { width: var(--s); height: var(--s); border-radius: 50%; }
+  .online { position: absolute; right: 2px; bottom: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-3); box-shadow: 0 0 0 2px #121216; }
+</style>

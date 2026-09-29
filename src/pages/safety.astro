@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+
+const principles = [
+  { title: 'You choose who hears you', text: 'Block, mute, and hide your Daily from anyone, whenever you want.' },
+  { title: 'Bad actors are removed', text: 'Reports are reviewed by our team, and accounts that break our rules are removed.' },
+  { title: 'Your data is yours', text: "Delete your account and everything you've sent, whenever you want." },
+];
+const tools = [
+  { icon: 'shield-ban', title: 'Block', text: "Blocking someone stops you both from seeing each other's content, and removes any follows between you." },
+  { icon: 'volume-x', title: 'Mute', text: "Stop seeing new messages from someone. They can't tell you've muted them, and unmuting brings their messages back." },
+  { icon: 'eye-off', title: 'Hide your Daily', text: "Keep your Daily posts from a specific person. They'll never know." },
+  { icon: 'lock', title: 'Private Convos & Channels', text: 'Make a Convo or Channel private and it is only shown to people who follow you. It never appears in Explore.' },
+  { icon: 'timer', title: 'Disappearing messages', text: 'Set any message to disappear after 1 to 24 hours, or keep it forever. Daily posts always disappear after 24 hours.' },
+  { icon: 'trash-2', title: 'Delete your account', text: "Delete your account and everything you've sent, in the app or from the web.", href: '/delete-account' },
+];
+const categories = ['Spam or scam', 'Harassment or bullying', 'Hate speech or symbols', 'Violence or threats', 'Inappropriate content', 'Something else'];
+---
+<Base title="Safety Center · Cascane" description="How Cascane keeps you in control: block, mute, hide your Daily, private Convos and Channels, reporting, and our child safety standards." path="/safety">
+  <section class="container page-top hero">
+    <p class="eyebrow" data-reveal>Safety Center</p>
+    <h1 class="display" data-reveal style="--i:1">Tools to keep Cascane yours.</h1>
+    <p class="lead" data-reveal style="--i:2">Cascane is built around real voices, so we built real controls around them. Here's everything you can do to decide who hears you, and what happens when someone crosses the line.</p>
+  </section>
+
+  <section class="container section principles-wrap">
+    <ol class="principles">
+      {principles.map((p, i) => (
+        <li data-reveal style={`--i:${i}`}>
+          <span class="num">0{i + 1}</span>
+          <h2 class="h3">{p.title}</h2>
+          <p>{p.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="container section" id="tools">
+    <p class="eyebrow" data-reveal>Your controls</p>
+    <h2 class="h2" data-reveal style="--i:1">Everything you can do in the app.</h2>
+    <ul class="tools">
+      {tools.map((t, i) => (
+        <li class="card tool" data-reveal style={`--i:${i % 3}`}>
+          <span class="icon-tile"><Icon name={t.icon} size={22} /></span>
+          <h3 class="h3">{t.title}</h3>
+          <p>{t.text}</p>
+          {t.href && <a class="link more" href={t.href}>How to delete your account <Icon name="arrow-right" size={16} /></a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container section" id="reporting">
+    <div class="split">
+      <div class="copy">
+        <p class="eyebrow" data-reveal>Reporting</p>
+        <h2 class="h2" data-reveal style="--i:1">How reporting works</h2>
+        <p class="lead" data-reveal style="--i:2">Report any message, thread or profile straight from the app using its report option, then pick the category that fits best. When you report a profile, you can block it in the same step.</p>
+        <p class="lead" data-reveal style="--i:3">We review every report, and child safety reports are handled as a priority.</p>
+      </div>
+      <ul class="card cats" data-reveal>
+        {categories.map((c) => <li><Icon name="flag" size={16} />{c}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="container section">
+    <div class="card child" data-reveal>
+      <div>
+        <h2 class="h3">Zero tolerance for child exploitation</h2>
+        <p>Cascane prohibits child sexual abuse and exploitation in any form. Substantiated reports lead to content removal, a permanent ban, and a report to NCMEC.</p>
+      </div>
+      <a class="btn btn-secondary" href="/child-safety">Read our Child Safety Standards</a>
+    </div>
+    <p class="fine muted">More: <a class="link" href="/privacy">Privacy Policy</a> · <a class="link" href="/terms">Terms of Service</a> · <a class="link" href="mailto:support@cascane.app?subject=Safety">support@cascane.app</a></p>
+  </section>
+</Base>
+<style>
+  .hero { display: grid; gap: 20px; }
+  .hero > * { max-width: 880px; }
+  .principles { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; border-top: 1px solid var(--line); padding-top: 40px; }
+  .principles li { display: grid; gap: 10px; align-content: start; }
+  .principles p { color: var(--text-2); }
+  .num { font-size: 0.8125rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+  #tools .h2 { margin: 16px 0 48px; max-width: 720px; }
+  .tools { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .tool { padding: 28px; display: grid; gap: 10px; align-content: start; }
+  .tool p { color: var(--text-2); }
+  .icon-tile { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; color: var(--accent); background: rgba(0, 217, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(0, 217, 255, 0.2); margin-bottom: 6px; }
+  .more { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; margin-top: 4px; }
+  .split { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .copy { display: grid; gap: 20px; }
+  .cats { list-style: none; padding: 12px; display: grid; }
+  .cats li { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 12px; color: var(--text); }
+  .cats li + li { box-shadow: 0 -1px 0 var(--line); }
+  .cats :global(.icon) { color: var(--text-3); }
+  .child { padding: clamp(28px, 4vw, 40px); display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0) 60%), var(--surface-1); }
+  .child > div { display: grid; gap: 8px; max-width: 640px; }
+  .child p { color: var(--text-2); }
+  .fine { margin-top: 24px; }
+  @media (max-width: 999px) { .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 899px) { .principles, .split { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 639px) { .tools { grid-template-columns: minmax(0, 1fr); } }
+</style>

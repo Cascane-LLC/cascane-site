@@ -1,0 +1,18 @@
+---
+interface Props { bars?: number; seed?: number; animated?: boolean; class?: string }
+const { bars = 28, seed = 7, animated = false, class: cls } = Astro.props;
+// Deterministic pseudo-random heights so the build output is stable.
+const heights = Array.from({ length: bars }, (_, i) => {
+  const x = Math.sin((i + 1) * seed * 12.9898) * 43758.5453;
+  return 0.25 + 0.75 * (x - Math.floor(x));
+});
+---
+<span class:list={['wave', { animated }, cls]} aria-hidden="true">
+  {heights.map((h, i) => <span style={`--h:${h.toFixed(2)};--d:${(i % 7) * 90}ms`} />)}
+</span>
+<style>
+  .wave { display: inline-flex; align-items: center; gap: 2px; height: var(--wave-h, 24px); }
+  .wave span { width: 3px; height: calc(var(--h) * 100%); border-radius: 2px; background: currentColor; }
+  .animated span { animation: wave 1.4s ease-in-out var(--d) infinite alternate; }
+  @keyframes wave { from { transform: scaleY(0.35); } to { transform: scaleY(1); } }
+</style>

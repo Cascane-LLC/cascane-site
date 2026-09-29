@@ -1,0 +1,20 @@
+---
+import '../../styles/illo.css';
+import AvatarBubble from '../AvatarBubble.astro';
+import VoicePill from '../VoicePill.astro';
+import Icon from '../Icon.astro';
+import tyler from '../../assets/avatars/tyler.png';
+---
+<div class="illo" aria-hidden="true">
+  <div class="illo-head">
+    <div class="row"><AvatarBubble src={tyler} size={40} ring="new" /><div class="who"><strong>Updates from the Starspace band!</strong><span>Channel · 5,765 subscribers</span></div></div>
+  </div>
+  <div class="feed">
+    <div class="row"><VoicePill duration="0:48" seed={8} /><span class="meta">2h</span></div>
+    <div class="row"><VoicePill duration="1:05" seed={12} /><span class="meta">1d</span></div>
+  </div>
+  <div class="row between" style="margin-top:20px">
+    <span class="chip"><Icon name="radio" size={14} />Only Tyler posts</span>
+    <span class="follow">Subscribed</span>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+---
+import { canonicalUrl, APP_STORE_ID } from '../lib/site.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;        // canonical path, e.g. "/" or "/privacy"
+  noindex?: boolean;
+  jsonLd?: object[];   // structured data blocks (home page only)
+}
+const { title, description, path, noindex = false, jsonLd = [] } = Astro.props;
+const url = canonicalUrl(path);
+const ogImage = new URL('/og.png', Astro.site).href;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={url} />
+{noindex && <meta name="robots" content="noindex" />}
+<meta name="apple-itunes-app" content={`app-id=${APP_STORE_ID}`} />
+<meta property="og:site_name" content="Cascane" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={url} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#08080A" />
+{jsonLd.map((block) => <script type="application/ld+json" is:inline set:html={JSON.stringify(block)} />)}

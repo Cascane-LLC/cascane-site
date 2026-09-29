@@ -1,0 +1,30 @@
+---
+import '../../styles/illo.css';
+import AvatarBubble from '../AvatarBubble.astro';
+import VoicePill from '../VoicePill.astro';
+import Icon from '../Icon.astro';
+import natalie from '../../assets/avatars/natalie.png';
+import tyler from '../../assets/avatars/tyler.png';
+import anna from '../../assets/avatars/anna.png';
+
+const posts = [
+  { img: natalie, name: 'Natalie', left: '23h left', dur: '0:24', seed: 3, ring: 'new' },
+  { img: tyler, name: 'Tyler', left: '22h left', dur: '0:41', seed: 5, ring: 'new' },
+  { img: anna, name: 'Anna', left: '20h left', dur: '0:18', seed: 9, ring: 'seen' },
+] as const;
+---
+<div class="illo" aria-hidden="true">
+  <div class="illo-head">
+    <span class="illo-title">Daily</span>
+    <span class="chip chip-accent"><Icon name="timer" size={14} />Gone in 24h</span>
+  </div>
+  <ul class="feed">
+    {posts.map((p) => (
+      <li class="row">
+        <AvatarBubble src={p.img} size={40} ring={p.ring} />
+        <div class="who grow"><strong>{p.name}</strong><VoicePill duration={p.dur} seed={p.seed} bars={14} /></div>
+        <span class="meta">{p.left}</span>
+      </li>
+    ))}
+  </ul>
+</div>

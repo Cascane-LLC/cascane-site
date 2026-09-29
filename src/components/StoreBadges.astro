@@ -1,0 +1,26 @@
+---
+import { APP_STORE_URL, PLAY_STORE_URL } from '../lib/site.ts';
+
+// Official artwork: Apple 119.66407 x 40, Google 238.96 x 70.87 (no padding).
+// Both render at the same height, which makes Google's the wider of the two
+// ("same size or larger", Google). Order: App Store first (Apple).
+interface Props { size?: 'lg' | 'md' }
+const { size = 'lg' } = Astro.props;
+const h = size === 'lg' ? 48 : 44;
+const appleW = Math.round((h * 119.66407) / 40);
+const googleW = Math.round((h * 238.96) / 70.87);
+---
+<div class="store-badges" data-store-badges>
+  <a class="store-badge" href={APP_STORE_URL} data-store="apple" target="_blank" rel="noopener">
+    <img src="/badges/app-store.svg" width={appleW} height={h} alt="Download Cascane on the App Store" />
+  </a>
+  <a class="store-badge" href={PLAY_STORE_URL} data-store="google" target="_blank" rel="noopener">
+    <img src="/badges/google-play.svg" width={googleW} height={h} alt="Get Cascane on Google Play" />
+  </a>
+</div>
+<style>
+  /* Clear space: at least a quarter of the badge height on every side (both brands). */
+  .store-badges { display: flex; flex-wrap: wrap; gap: 16px; padding-block: 12px; }
+  .store-badge { display: block; border-radius: 8px; }
+  .store-badge img { height: auto; }
+</style>

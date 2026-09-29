@@ -1,0 +1,182 @@
+---
+import Base from '../layouts/Base.astro';
+import Phone from '../components/Phone.astro';
+import FeatureRow from '../components/FeatureRow.astro';
+import Waveform from '../components/Waveform.astro';
+import StoreBadges from '../components/StoreBadges.astro';
+import DownloadBand from '../components/DownloadBand.astro';
+import Icon from '../components/Icon.astro';
+import TypeSwitcher from '../components/TypeSwitcher.astro';
+import DetailGrid from '../components/DetailGrid.astro';
+import ExploreBoard from '../components/illustrations/ExploreBoard.astro';
+import chat from '../assets/screens/chat_page.png';
+import convos from '../assets/screens/convos_page.png';
+import inbox from '../assets/screens/inbox_page.png';
+import channel from '../assets/screens/channel_info_page.png';
+import profile from '../assets/screens/profile_page.png';
+import { SITE_URL, APP_STORE_URL, PLAY_STORE_URL, SUPPORT_EMAIL } from '../lib/site.ts';
+
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Cascane', url: `${SITE_URL}/` },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Cascane LLC',
+    url: `${SITE_URL}/`,
+    logo: `${SITE_URL}/icon-512.png`,
+    email: SUPPORT_EMAIL,
+    address: { '@type': 'PostalAddress', streetAddress: '522 W Riverside Ave Ste N', addressLocality: 'Spokane', addressRegion: 'WA', postalCode: '99201', addressCountry: 'US' },
+    sameAs: [APP_STORE_URL, PLAY_STORE_URL],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'MobileApplication',
+    name: 'Cascane',
+    operatingSystem: 'iOS, Android',
+    applicationCategory: 'SocialNetworkingApplication',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    installUrl: [APP_STORE_URL, PLAY_STORE_URL],
+    publisher: { '@type': 'Organization', name: 'Cascane LLC' },
+  },
+];
+
+const safety = [
+  { icon: 'shield-check', title: "You're in control", text: 'Block, mute, and hide your Daily from anyone.', href: '/safety', cta: 'Visit the Safety Center' },
+  { icon: 'flag', title: 'Report anything', text: 'Six report categories, reviewed by our team.', href: '/safety#reporting', cta: 'How reporting works' },
+  { icon: 'lock', title: 'Zero tolerance for child exploitation', text: 'Substantiated reports mean removal, a permanent ban, and a report to NCMEC.', href: '/child-safety', cta: 'Child Safety Standards' },
+];
+
+const details = {
+  reactions: 'React to any voice message with an emoji.',
+  receipts: 'See exactly who heard your message.',
+  replies: 'Reply to a specific message and keep the thread together.',
+  photo: 'Attach a photo to any voice message.',
+  timers: 'Set any message to vanish after 1–24 hours, or keep it forever.',
+  presence: 'See when your friends are around.',
+};
+---
+<Base
+  title="Cascane — Voice-first social messaging"
+  description="Cascane is a social app where every message is a voice. Talk with friends, join Convos about anything, and follow the voices you love. Free on iPhone and Android."
+  path="/"
+  jsonLd={jsonLd}
+>
+  <meta slot="head" name="google-site-verification" content="YebptMeSaMRmH9P3XirwODk8zuesbpQQuMm41_QLcAE" />
+
+  <section class="hero page-top">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-reveal>Voice-first social</p>
+        <h1 class="display" data-reveal style="--i:1">Social, out loud.</h1>
+        <p class="lead" data-reveal style="--i:2">Cascane is a social app where every message is a voice. Talk with friends, jump into Convos about anything, and follow the people you want to hear from.</p>
+        <StoreBadges />
+        <p class="muted meta">Free on iPhone and Android.</p>
+      </div>
+      <div class="hero-media">
+        <Phone src={chat} alt="A Cascane Convo: friends' voice replies appear as avatar bubbles, with the record button at the bottom" width={360} eager />
+      </div>
+    </div>
+  </section>
+
+  <section class="section why">
+    <div class="container why-inner">
+      <p class="why-text" data-reveal><span>Text flattens people.</span> Voice brings back the tone, the laugh, the pause before the punchline.</p>
+      <Waveform bars={64} seed={11} animated class="why-wave" />
+    </div>
+  </section>
+
+  <TypeSwitcher />
+
+  <FeatureRow
+    eyebrow="Convos"
+    title="Start conversations about anything."
+    body="Post a question and let everyone answer by voice, then pass it along to friends."
+    points={['Hashtags for every topic', 'Upvote the Convos worth hearing', 'Public or private']}
+    image={convos}
+    alt="The Convos tab: voice conversation prompts with hashtags and vote counts"
+  />
+  <FeatureRow
+    eyebrow="Messages"
+    title="Every conversation in one place."
+    body="DMs, group chats and the Channels you follow live together in one inbox."
+    points={['DMs, groups and Channels together', 'Unread at a glance', 'Find anyone by name']}
+    image={inbox}
+    alt="The Messages inbox with DMs, group chats and Channels"
+    flip
+  />
+  <FeatureRow
+    eyebrow="Channels"
+    title="Your voice, broadcast."
+    body="Start a Channel and speak to everyone who subscribes."
+    points={['Subscribers hear every update', 'Hashtags help people find it', 'Public or private']}
+    image={channel}
+    alt="A Channel page for “Updates from the Starspace band!” with 5,765 subscribers"
+  />
+  <FeatureRow
+    eyebrow="People"
+    title="Follow the voices you love."
+    body="Follow friends and the people you want to hear from. Your Cascane Score grows as people listen, reply and follow."
+    points={['Followers and mutuals', '“Follows you” at a glance', 'Your Cascane Score']}
+    image={profile}
+    alt="A Cascane profile with followers, a Cascane Score, Convos started and Channels"
+    flip
+  />
+
+  <DetailGrid eyebrow="The details" title="Everything a voice message can do." text={details} />
+
+  <FeatureRow
+    id="explore"
+    eyebrow="Explore"
+    title="Find your people."
+    body="Trending Convos and Channels, Popular Voices, and hashtag pages for whatever you're into, all a tap away."
+    points={['Trending Convos and Channels', 'Popular Voices to follow', 'Hashtag pages for every interest']}
+  >
+    <ExploreBoard slot="media" />
+  </FeatureRow>
+
+  <section class="section safety">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Safety</p>
+      <h2 class="h2" data-reveal style="--i:1">Built to feel safe.</h2>
+      <ul class="safety-grid">
+        {safety.map((s, i) => (
+          <li data-reveal style={`--i:${i}`}>
+            <a class="card safety-card" href={s.href}>
+              <span class="icon-tile"><Icon name={s.icon} size={22} /></span>
+              <h3 class="h3">{s.title}</h3>
+              <p>{s.text}</p>
+              <span class="link more">{s.cta} <Icon name="arrow-right" size={16} /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <DownloadBand id="download" heading="Your voice belongs in the conversation." text="Free on iPhone and Android." />
+</Base>
+
+<style>
+  .hero { position: relative; overflow: hidden; padding-bottom: clamp(64px, 10vw, 120px); }
+  .hero::before { content: ''; position: absolute; right: -10%; top: -20%; width: 900px; height: 900px; background: radial-gradient(closest-side, rgba(0, 217, 255, 0.1), rgba(0, 217, 255, 0) 70%); pointer-events: none; }
+  .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 80px); align-items: center; }
+  .hero-copy { display: grid; gap: 24px; justify-items: start; }
+  .hero-copy .lead { max-width: 540px; }
+  .meta { font-size: 0.875rem; margin-top: -12px; }
+  .why { text-align: center; }
+  .why-inner { display: grid; gap: 40px; justify-items: center; }
+  .why-text { font-size: clamp(1.75rem, 3.6vw, 3rem); font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; max-width: 960px; text-wrap: balance; }
+  .why-text span { color: var(--text-3); }
+  .why :global(.why-wave) { --wave-h: 56px; color: var(--accent); opacity: 0.9; max-width: 100%; overflow: hidden; }
+  .safety .h2 { margin: 16px 0 48px; }
+  .safety-grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .safety-card { height: 100%; padding: 28px; display: grid; gap: 10px; align-content: start; transition: background-color 0.2s; }
+  .safety-card:hover { background: #15151A; }
+  .safety-card p { color: var(--text-2); }
+  .icon-tile { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; color: var(--accent); background: rgba(0, 217, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(0, 217, 255, 0.2); margin-bottom: 6px; }
+  .more { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; margin-top: 6px; }
+  @media (max-width: 899px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .safety-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

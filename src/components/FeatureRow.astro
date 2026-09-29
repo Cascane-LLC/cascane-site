@@ -1,0 +1,38 @@
+---
+import type { ImageMetadata } from 'astro';
+import Phone from './Phone.astro';
+import Icon from './Icon.astro';
+
+interface Props { id?: string; eyebrow: string; title: string; body: string; points: string[]; image?: ImageMetadata; alt?: string; flip?: boolean }
+const { id, eyebrow, title, body, points, image, alt = '', flip = false } = Astro.props;
+---
+<section class="section feature" id={id}>
+  <div class:list={['container', 'grid', { flip }]}>
+    <div class="copy">
+      <p class="eyebrow" data-reveal>{eyebrow}</p>
+      <h2 class="h2" data-reveal style="--i:1">{title}</h2>
+      <p class="lead" data-reveal style="--i:2">{body}</p>
+      <ul class="points" data-reveal style="--i:3">
+        {points.map((p) => <li><Icon name="check" size={18} /><span>{p}</span></li>)}
+      </ul>
+    </div>
+    <div class="media" data-reveal>
+      {image ? <Phone src={image} alt={alt} width={320} /> : <slot name="media" />}
+    </div>
+  </div>
+</section>
+<style>
+  /* The phone's glow is wider than the column; keep it from widening the page. */
+  .feature { overflow-x: clip; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(48px, 7vw, 96px); align-items: center; }
+  .flip .copy { order: 2; }
+  .copy { display: grid; gap: 20px; max-width: 520px; }
+  .points { list-style: none; padding: 0; display: grid; gap: 12px; margin-top: 8px; }
+  .points li { display: flex; gap: 12px; align-items: flex-start; color: var(--text-2); }
+  .points :global(.icon) { color: var(--accent); flex: none; margin-top: 3px; }
+  @media (max-width: 899px) {
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    .flip .copy { order: 0; }
+    .copy { max-width: none; }
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro';
+import DailyFeed from './illustrations/DailyFeed.astro';
+import DmThread from './illustrations/DmThread.astro';
+import GroupThread from './illustrations/GroupThread.astro';
+import ConvoCard from './illustrations/ConvoCard.astro';
+import ChannelCard from './illustrations/ChannelCard.astro';
+
+const tabs = [
+  { id: 'daily', label: 'Daily', title: 'Your day, out loud.', text: "Post a voice message to everyone who follows you. It's gone in 24 hours.", facts: ['Posts from the people you follow', 'Every post disappears after 24 hours', 'Hide your Daily from anyone'], Illo: DailyFeed },
+  { id: 'dms', label: 'DMs', title: 'One-on-one, in your own voice.', text: "See when they're online and when they've listened.", facts: ['Online status at a glance', "Know when they've listened", 'Add a photo to any voice message'], Illo: DmThread },
+  { id: 'groups', label: 'Groups', title: 'Group chats you can actually hear.', text: 'Name it, add your friends, and talk.', facts: ['Add friends in a couple of taps', 'React and reply to any message', 'Everyone hears everyone'], Illo: GroupThread },
+  { id: 'convos', label: 'Convos', title: 'Ask anything. Everyone answers by voice.', text: 'Public or private topics with hashtags, votes, and replies that spread through friends.', facts: ['Public or private', 'Hashtags and upvotes', 'Spreads friend to friend'], Illo: ConvoCard },
+  { id: 'channels', label: 'Channels', title: 'Broadcast to thousands.', text: 'Only you post; your subscribers listen.', facts: ['Only the creator posts', 'Subscribers tune in', 'Discoverable by hashtag'], Illo: ChannelCard },
+];
+---
+<section class="section switch" id="ways">
+  <div class="container">
+    <div class="head">
+      <p class="eyebrow" data-reveal>Five ways to talk</p>
+      <h2 class="h2" data-reveal style="--i:1">One voice. Five ways to talk.</h2>
+    </div>
+    <div data-switcher>
+      <div class="tabs" role="tablist" aria-label="Ways to talk on Cascane">
+        {tabs.map((t, i) => (
+          <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{t.label}</button>
+        ))}
+      </div>
+      {tabs.map((t, i) => {
+        const Illo = t.Illo;
+        return (
+          <div class="panel" role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} hidden={i !== 0}>
+            <div class="panel-copy">
+              <h3 class="panel-title">{t.title}</h3>
+              <p class="lead">{t.text}</p>
+              <ul class="facts">{t.facts.map((f) => <li><Icon name="check" size={18} />{f}</li>)}</ul>
+            </div>
+            <div class="panel-media"><Illo /></div>
+          </div>
+        );
+      })}
+    </div>
+    <a class="link more" href="/features">Explore every feature <Icon name="arrow-right" size={16} /></a>
+  </div>
+</section>
+<script>
+  import { nextTabIndex } from '../lib/tabs.ts';
+
+  document.querySelectorAll<HTMLElement>('[data-switcher]').forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+    const select = (i: number, focus: boolean) => {
+      tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(i === j)); t.tabIndex = i === j ? 0 : -1; });
+      panels.forEach((p, j) => { p.hidden = i !== j; });
+      if (focus) tabs[i].focus();
+    };
+    // Drop the phone edge fade once the tab bar is scrolled to its end.
+    const bar = root.querySelector<HTMLElement>('[role="tablist"]');
+    const syncEnd = () => { if (bar) bar.toggleAttribute('data-at-end', bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 2); };
+    bar?.addEventListener('scroll', syncEnd, { passive: true });
+    addEventListener('resize', syncEnd);
+    syncEnd();
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i, false));
+      t.addEventListener('keydown', (e) => {
+        const next = nextTabIndex(i, e.key, tabs.length);
+        if (next !== null) { e.preventDefault(); select(next, true); }
+      });
+    });
+  });
+</script>
+<style>
+  .head { text-align: center; display: grid; gap: 16px; justify-items: center; margin-bottom: 40px; }
+  .tabs { display: flex; gap: 4px; padding: 4px; margin: 0 auto 48px; width: max-content; max-width: 100%; overflow-x: auto; border-radius: var(--r-pill); background: var(--surface-1); box-shadow: inset 0 0 0 1px var(--line); scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  [role='tab'] { height: 40px; padding: 0 18px; flex: none; border-radius: var(--r-pill); font-size: 0.9375rem; font-weight: 600; color: var(--text-2); white-space: nowrap; transition: background-color 0.2s, color 0.2s; }
+  [role='tab'][aria-selected='true'] { background: var(--text); color: #000; }
+  [role='tab']:hover:not([aria-selected='true']) { color: var(--text); }
+  .panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .panel[hidden] { display: none; }
+  .panel-copy { display: grid; gap: 16px; max-width: 460px; }
+  .panel-title { font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 650; letter-spacing: -0.025em; line-height: 1.15; }
+  .facts { list-style: none; padding: 0; display: grid; gap: 10px; color: var(--text-2); }
+  .facts li { display: flex; gap: 10px; align-items: center; }
+  .facts :global(.icon) { color: var(--accent); flex: none; }
+  .more { display: inline-flex; align-items: center; gap: 6px; margin-top: 48px; font-weight: 600; }
+  @media (max-width: 899px) { .panel { grid-template-columns: minmax(0, 1fr); } }
+  /* Phones: the tab bar scrolls sideways; fade its right edge so the hidden tabs are discoverable. */
+  @media (max-width: 599px) {
+    .tabs { -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent); mask-image: linear-gradient(90deg, #000 80%, transparent); }
+    .tabs[data-at-end] { -webkit-mask-image: none; mask-image: none; }
+  }
+  /* Without JavaScript the tabs can't switch, so show every panel and drop the tab bar. */
+  :global(html:not(.js)) .tabs { display: none; }
+  :global(html:not(.js)) .panel[hidden] { display: grid; }
+  :global(html:not(.js)) .panel + .panel { margin-top: 64px; }
+</style>

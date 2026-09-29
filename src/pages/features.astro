@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import FeatureRow from '../components/FeatureRow.astro';
+import DetailGrid from '../components/DetailGrid.astro';
+import DownloadBand from '../components/DownloadBand.astro';
+import DailyFeed from '../components/illustrations/DailyFeed.astro';
+import GroupThread from '../components/illustrations/GroupThread.astro';
+import ExploreBoard from '../components/illustrations/ExploreBoard.astro';
+import inbox from '../assets/screens/inbox_page.png';
+import convos from '../assets/screens/convos_page.png';
+import channel from '../assets/screens/channel_info_page.png';
+import profile from '../assets/screens/profile_page.png';
+
+const details = {
+  reactions: 'Answer with an emoji when a voice message deserves one, and see who reacted with what.',
+  receipts: "Every message shows who's heard it, so you're never left wondering.",
+  replies: 'Reply to one specific message. Replies stay threaded under it, so busy chats stay easy to follow.',
+  photo: 'Attach a photo to any voice message and say what it is at the same time.',
+  timers: "Pick a timer from 1 to 24 hours, or keep a message forever. When time's up, it's gone.",
+  presence: "A green dot shows who's around right now.",
+};
+---
+<Base title="Features · Cascane" description="Daily voice posts, DMs, group chats, Convos and Channels, plus reactions, voice replies and disappearing messages. See everything Cascane can do." path="/features">
+  <section class="container page-top hero">
+    <p class="eyebrow" data-reveal>Features</p>
+    <h1 class="display" data-reveal style="--i:1">Everything you can say with Cascane.</h1>
+    <p class="lead" data-reveal style="--i:2">Cascane turns every message into a voice message: in your feed, your DMs, your group chats, and the conversations you start. Here's the whole tour.</p>
+    <nav class="jump" aria-label="Jump to a feature" data-reveal style="--i:3">
+      {[['daily', 'Daily'], ['dms', 'DMs'], ['groups', 'Groups'], ['convos', 'Convos'], ['channels', 'Channels'], ['explore', 'Explore'], ['profiles', 'Profiles']].map(([id, label]) => <a class="chip-link" href={`#${id}`}>{label}</a>)}
+    </nav>
+  </section>
+
+  <FeatureRow
+    id="daily"
+    eyebrow="Daily"
+    title="A feed that sounds like your friends."
+    body="Daily is your home tab: short voice posts from you and everyone you follow, newest first. Every post clears itself after 24 hours, so the feed is always about today."
+    points={['Voice posts from the people you follow', 'Posts disappear after 24 hours', 'Hide your Daily from specific people', 'React or reply to any post']}
+  >
+    <DailyFeed slot="media" />
+  </FeatureRow>
+
+  <FeatureRow
+    id="dms"
+    eyebrow="DMs"
+    title="Conversations that sound like you."
+    body="Send a voice message to anyone, one-on-one. Your inbox keeps DMs, groups and Channels together, with unread counts so nothing slips by."
+    points={["See who's online", 'Know when your message was heard', 'Filter by DMs, Groups or Channels', 'Search by name or username']}
+    image={inbox}
+    alt="The Messages inbox with DMs, group chats and Channels, filtered by type"
+    flip
+  />
+
+  <FeatureRow
+    id="groups"
+    eyebrow="Groups"
+    title="Everyone in the room, out loud."
+    body="Start a group, give it a name if you like, and add the people you follow. Everyone can talk, react, and reply to a specific message, so side conversations stay organised."
+    points={["Name your group (or don't)", 'Add people from your followers', 'Reactions and threaded voice replies']}
+  >
+    <GroupThread slot="media" />
+  </FeatureRow>
+
+  <FeatureRow
+    id="convos"
+    eyebrow="Convos"
+    title="Ask the question. Hear every answer."
+    body="A Convo starts with a prompt, anything from a horror-movie debate to your craziest first day at work. People answer by voice, vote the Convo up or down, and pass it along to friends."
+    points={['Add a title, description, photo and hashtags', 'Public, or private to your followers', 'Upvote and downvote', 'See who passed it to you']}
+    image={convos}
+    alt="The Convos tab listing prompts such as “What's one horror movie you'll never get tired of watching?”"
+    flip
+  />
+
+  <FeatureRow
+    id="channels"
+    eyebrow="Channels"
+    title="Your own station."
+    body="Channels are one-way: you post, subscribers listen. Use one for your band, your club, or your hot takes, and let people find it by hashtag."
+    points={['Only the creator posts', 'Subscribers get every update', 'Hashtags help people discover it', 'Public, or private to your followers']}
+    image={channel}
+    alt="The info page of a Channel with its description, hashtags, subscriber count and creator"
+  />
+
+  <DetailGrid id="details" eyebrow="The details" title="More than a voice message." lead="Every message on Cascane can carry a reaction, a reply thread, a photo and a timer, and you always know who heard it." text={details} />
+
+  <FeatureRow
+    id="explore"
+    eyebrow="Explore"
+    title="There's always someone worth hearing."
+    body="Explore surfaces trending Convos and Channels, Popular Voices, and hashtag pages, tuned to what you engage with."
+    points={['Trending Convos and Channels', 'Popular Voices to follow', 'A page for every hashtag', 'Search people and hashtags']}
+    flip
+  >
+    <ExploreBoard slot="media" />
+  </FeatureRow>
+
+  <FeatureRow
+    id="profiles"
+    eyebrow="Profiles"
+    title="Your profile, your voice."
+    body="Your profile shows the Convos you've started and the Channels you run, alongside your followers and your Cascane Score."
+    points={['Followers, following and mutuals', '“Follows you” at a glance', 'A Cascane Score that grows as you post, and as people listen, reply, react, upvote, subscribe and follow']}
+    image={profile}
+    alt="A profile page with bio, follower counts, Cascane Score, Convos started and Channels"
+  />
+
+  <DownloadBand heading="Hear it for yourself." text="Free on iPhone and Android." />
+</Base>
+<style>
+  .hero { display: grid; gap: 20px; padding-bottom: 24px; }
+  .hero > * { max-width: 900px; }
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip-link { height: 36px; padding: 0 14px; display: inline-flex; align-items: center; border-radius: var(--r-pill); font-size: 0.875rem; font-weight: 600; color: var(--text-2); background: var(--surface-1); box-shadow: inset 0 0 0 1px var(--line); transition: color 0.2s, background-color 0.2s; }
+  .chip-link:hover { color: var(--text); background: var(--surface-2); }
+</style>

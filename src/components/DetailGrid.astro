@@ -1,0 +1,46 @@
+---
+// The per-message features as a text-only, numbered two-column list
+// (heading on the left on desktop). Chosen over illustrated tiles, 2026-09-30.
+type Key = 'reactions' | 'receipts' | 'replies' | 'photo' | 'timers' | 'presence';
+interface Props { id?: string; eyebrow: string; title: string; lead?: string; text: Record<Key, string> }
+const { id, eyebrow, title, lead, text } = Astro.props;
+
+const items: { key: Key; title: string }[] = [
+  { key: 'reactions', title: 'Reactions' },
+  { key: 'receipts', title: 'Listen receipts' },
+  { key: 'replies', title: 'Threaded voice replies' },
+  { key: 'photo', title: 'Photo + voice' },
+  { key: 'timers', title: 'Disappearing messages' },
+  { key: 'presence', title: 'Online now' },
+];
+---
+<section class="section details-text" id={id}>
+  <div class="container grid">
+    <div class="head">
+      <p class="eyebrow" data-reveal>{eyebrow}</p>
+      <h2 class="h2" data-reveal style="--i:1">{title}</h2>
+      {lead && <p class="lead" data-reveal style="--i:2">{lead}</p>}
+    </div>
+    <ol class="textlist">
+      {items.map((it, i) => (
+        <li data-reveal style={`--i:${i % 2}`}>
+          <span class="num">0{i + 1}</span>
+          <div>
+            <h3 class="h3">{it.title}</h3>
+            <p>{text[it.key]}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+<style>
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 48px; align-items: start; }
+  .head { display: grid; gap: 16px; }
+  .textlist { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
+  .textlist li { display: grid; grid-template-columns: auto 1fr; gap: 14px; }
+  .textlist p { color: var(--text-2); margin-top: 6px; }
+  .num { font-size: 0.8125rem; font-weight: 600; color: var(--accent); padding-top: 4px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 999px) { .grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+  @media (max-width: 639px) { .textlist { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+</style>

@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Request received · Cascane" description="Your Cascane account deletion request has been received. Our support team will verify it and delete your account within 30 days." path="/delete-account-received" noindex>
+  <section class="container page-top section wrap">
+    <div class="card box">
+      <span class="check"><Icon name="check" size={28} /></span>
+      <h1 class="h2">Request received</h1>
+      <p class="lead">We've received your account deletion request. Our support team will verify it and permanently delete your account and the content you created within 30 days.</p>
+      <p class="muted">Questions in the meantime? Email <a class="link" href="mailto:support@cascane.app">support@cascane.app</a>.</p>
+      <a class="btn btn-primary" href="/">Back to Cascane</a>
+    </div>
+  </section>
+</Base>
+<style>
+  .wrap { display: grid; place-items: center; }
+  .box { max-width: 560px; padding: clamp(28px, 5vw, 48px); display: grid; gap: 18px; justify-items: center; text-align: center; }
+  .check { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; color: var(--accent); background: rgba(0, 217, 255, 0.08); box-shadow: inset 0 0 0 2px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.2); }
+</style>
