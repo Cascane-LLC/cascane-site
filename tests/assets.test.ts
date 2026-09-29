@@ -31,6 +31,11 @@ test('brand mark and icons have the right sizes', () => {
   assert.equal(ico.readUInt16LE(2), 1, 'favicon.ico has an ICO header');
 });
 
+test('tab icons are circles (transparent corners); home-screen icons stay square', () => {
+  for (const f of ['favicon-48.png', 'favicon-96.png']) assert.equal(png(`public/${f}`).rgba, true, `${f} needs an alpha channel for its round shape`);
+  for (const f of ['apple-touch-icon.png', 'icon-192.png', 'icon-512.png']) assert.equal(png(`public/${f}`).rgba, false, `${f} must stay square and opaque (iOS turns transparency black)`);
+});
+
 test('official badges are the expected artwork', () => {
   assert.match(readFileSync('public/badges/app-store.svg', 'utf8'), /viewBox="0 0 119\.66407 40"/);
   assert.match(readFileSync('public/badges/google-play.svg', 'utf8'), /viewBox="0 0 238\.96 70\.87"/);

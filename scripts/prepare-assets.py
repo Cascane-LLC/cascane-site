@@ -76,8 +76,15 @@ def icons():
     with Image.open(ICON) as src:
         icon = src.convert('RGB')
     assert icon.size == (1024, 1024)
-    icon.save(PUBLIC / 'favicon.ico', sizes=[(16, 16), (32, 32), (48, 48)])
-    for size, name in [(48, 'favicon-48.png'), (96, 'favicon-96.png'), (180, 'apple-touch-icon.png'), (192, 'icon-192.png'), (512, 'icon-512.png')]:
+    # Browser-tab icons are round (transparent corners), like most big sites' favicons.
+    round_icon = icon.copy()
+    round_icon.putalpha(circle_mask(icon.size[0]))
+    round_icon.save(PUBLIC / 'favicon.ico', sizes=[(16, 16), (32, 32), (48, 48)])
+    for size, name in [(48, 'favicon-48.png'), (96, 'favicon-96.png')]:
+        round_icon.resize((size, size), Image.LANCZOS).save(PUBLIC / name, optimize=True)
+    # Home-screen icons stay square and opaque: iOS/Android apply their own
+    # rounded mask, and iOS renders transparent corners as black.
+    for size, name in [(180, 'apple-touch-icon.png'), (192, 'icon-192.png'), (512, 'icon-512.png')]:
         icon.resize((size, size), Image.LANCZOS).save(PUBLIC / name, optimize=True)
     # Rounded mark used in the nav, footer and download band (cyan tile, five dots).
     mark = icon.resize((256, 256), Image.LANCZOS)
