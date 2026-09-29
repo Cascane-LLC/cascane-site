@@ -180,7 +180,7 @@ Section order and content:
 
 A full tour with anchor ids for footer links:
 - Hero: eyebrow "Features", heading "Everything you can say with Cascane.", a short intro.
-- `#daily`, `#dms`, `#groups`, `#convos`, `#channels`: one block each, with 3–5 concrete capabilities taken from the code, and the matching screenshot or illustration. `#convos` uses `convos_page`; `#channels` uses `channel_info_page`; `#dms`/`#groups` share `inbox_page`; `#daily` uses its illustration.
+- `#daily`, `#dms`, `#groups`, `#convos`, `#channels`: one block each, with 3–5 concrete capabilities taken from the code, and the matching screenshot or illustration. `#convos` uses `convos_page`; `#channels` uses `channel_info_page`; `#dms` uses `inbox_page`; `#groups` and `#daily` use their illustrations, so no screenshot appears twice on the page.
 - `#details`: the details grid (a longer version of home §5).
 - `#explore`: trending Convos and Channels, Popular Voices, hashtag pages, search.
 - `#profiles`: profile, followers/following/mutuals, the Cascane Score explained qualitatively ("earn points when you post, and when people listen, reply, react, upvote, subscribe or follow"). No point values are published.
