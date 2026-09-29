@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // Pages Google should not index; kept out of the sitemap.
-const UNLISTED = ['/404', '/delete-account-received'];
+const UNLISTED = ['/404', '/delete-account-received', '/details-options'];
 
 export default defineConfig({
   site: 'https://www.cascane.app',
