@@ -46,14 +46,14 @@ const safety = [
   { icon: 'lock', title: 'Zero tolerance for child exploitation', text: 'Substantiated reports mean removal, a permanent ban, and a report to NCMEC.', href: '/child-safety', cta: 'Child Safety Standards' },
 ];
 
-const details = [
-  { icon: 'smile', title: 'Reactions', text: 'React to any voice message with an emoji.' },
-  { icon: 'reply', title: 'Voice replies', text: 'Reply to a specific message and keep the thread together.' },
-  { icon: 'headphones', title: 'Who listened', text: 'See exactly who heard your message.' },
-  { icon: 'image', title: 'Photos', text: 'Attach a photo to any voice message.' },
-  { icon: 'timer', title: 'Disappearing messages', text: 'Set any message to vanish after 1–24 hours, or keep it forever.' },
-  { icon: 'circle-dot', title: 'Online now', text: 'See when your friends are around.' },
-];
+const details = {
+  reactions: 'React to any voice message with an emoji.',
+  receipts: 'See exactly who heard your message.',
+  replies: 'Reply to a specific message and keep the thread together.',
+  photo: 'Attach a photo to any voice message.',
+  timers: 'Set any message to vanish after 1–24 hours, or keep it forever.',
+  presence: 'See when your friends are around.',
+};
 ---
 <Base
   title="Cascane — Voice-first social messaging"
@@ -122,7 +122,7 @@ const details = [
     flip
   />
 
-  <DetailGrid eyebrow="The details" title="The details that make voice feel alive." items={details} />
+  <DetailGrid eyebrow="The details" title="Everything a voice message can do." text={details} />
 
   <FeatureRow
     id="explore"

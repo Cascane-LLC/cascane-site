@@ -1,33 +1,162 @@
 ---
+// The per-message features, as a bento of illustrated tiles (wide/narrow,
+// alternating each row). Each tile carries a small live-looking demo.
+import '../styles/illo.css';
+import { Image } from 'astro:assets';
 import Icon from './Icon.astro';
+import AvatarBubble from './AvatarBubble.astro';
+import VoicePill from './VoicePill.astro';
+import anna from '../assets/avatars/anna.png';
+import nate from '../assets/avatars/nate.png';
+import tyler from '../assets/avatars/tyler.png';
+import ethan from '../assets/avatars/ethan.png';
+import natalie from '../assets/avatars/natalie.png';
+import austin from '../assets/avatars/austin.png';
+import starspace from '../assets/photos/starspace.png';
 
-interface Item { icon: string; title: string; text: string }
-interface Props { id?: string; eyebrow: string; title: string; items: Item[] }
-const { id, eyebrow, title, items } = Astro.props;
+type Key = 'reactions' | 'receipts' | 'replies' | 'photo' | 'timers' | 'presence';
+interface Props { id?: string; eyebrow: string; title: string; lead?: string; text: Record<Key, string> }
+const { id, eyebrow, title, lead, text } = Astro.props;
 ---
-<section class="section details" id={id}>
+<section class="section bento-section" id={id}>
   <div class="container">
     <div class="head">
       <p class="eyebrow" data-reveal>{eyebrow}</p>
       <h2 class="h2" data-reveal style="--i:1">{title}</h2>
+      {lead && <p class="lead" data-reveal style="--i:2">{lead}</p>}
     </div>
-    <ul class="grid">
-      {items.map((it, i) => (
-        <li class="card item" data-reveal style={`--i:${i % 3}`}>
-          <span class="icon-tile"><Icon name={it.icon} size={22} /></span>
-          <h3 class="h3">{it.title}</h3>
-          <p>{it.text}</p>
-        </li>
-      ))}
+
+    <ul class="bento">
+      <li class="tile wide" data-reveal>
+        <div class="art" aria-hidden="true">
+          <div class="reactions">
+            <VoicePill duration="0:32" seed={4} bars={22} />
+            <span class="react r1">😂 4</span>
+            <span class="react r2">🔥 2</span>
+            <span class="react r3">❤️ 7</span>
+            <span class="react r4">👏 1</span>
+          </div>
+        </div>
+        <h3 class="h3">Reactions</h3>
+        <p>{text.reactions}</p>
+      </li>
+
+      <li class="tile" data-reveal style="--i:1">
+        <div class="art" aria-hidden="true">
+          <div class="stackcol">
+            <VoicePill duration="0:18" seed={9} bars={12} mine />
+            <div class="heard">
+              <span class="stack"><AvatarBubble src={natalie} size={24} /><AvatarBubble src={ethan} size={24} /><AvatarBubble src={nate} size={24} /><AvatarBubble src={anna} size={24} /></span>
+              <span class="meta"><Icon name="headphones" size={14} /> 16 listens</span>
+            </div>
+          </div>
+        </div>
+        <h3 class="h3">Listen receipts</h3>
+        <p>{text.receipts}</p>
+      </li>
+
+      <li class="tile" data-reveal>
+        <div class="art" aria-hidden="true">
+          <div class="thread">
+            <div class="row"><AvatarBubble src={anna} size={28} /><VoicePill duration="0:21" seed={3} bars={12} /></div>
+            <div class="replies-col">
+              <div class="row"><AvatarBubble src={nate} size={24} /><VoicePill duration="0:07" seed={6} bars={9} /></div>
+              <div class="row"><AvatarBubble src={tyler} size={24} ring="new" /><VoicePill duration="0:12" seed={8} bars={9} /></div>
+            </div>
+          </div>
+        </div>
+        <h3 class="h3">Threaded voice replies</h3>
+        <p>{text.replies}</p>
+      </li>
+
+      <li class="tile wide" data-reveal style="--i:1">
+        <div class="art" aria-hidden="true">
+          <div class="photo-msg">
+            <Image src={starspace} alt="" width={132} height={132} densities={[1, 1.4]} class="photo" />
+            <div class="stackcol">
+              <span class="meta"><strong>Tyler</strong> · new album art</span>
+              <VoicePill duration="0:26" seed={12} bars={16} />
+            </div>
+          </div>
+        </div>
+        <h3 class="h3">Photo + voice</h3>
+        <p>{text.photo}</p>
+      </li>
+
+      <li class="tile wide pair-md" data-reveal>
+        <div class="art" aria-hidden="true">
+          <div class="stackcol timers">
+            <div class="dial">
+              {['1h', '6h', '12h', '24h', '∞'].map((t) => <span class:list={['stop', { on: t === '24h' }]}>{t}</span>)}
+            </div>
+            <div class="row"><VoicePill duration="0:15" seed={5} bars={14} mine /><span class="chip chip-accent"><Icon name="timer" size={14} />23h left</span></div>
+          </div>
+        </div>
+        <h3 class="h3">Disappearing messages</h3>
+        <p>{text.timers}</p>
+      </li>
+
+      <li class="tile" data-reveal style="--i:1">
+        <div class="art" aria-hidden="true">
+          <div class="stackcol">
+            <div class="online-row">
+              <AvatarBubble src={natalie} size={36} online />
+              <AvatarBubble src={austin} size={36} online />
+              <AvatarBubble src={ethan} size={36} online />
+              <AvatarBubble src={anna} size={36} />
+            </div>
+            <span class="meta">3 friends online</span>
+          </div>
+        </div>
+        <h3 class="h3">Online now</h3>
+        <p>{text.presence}</p>
+      </li>
     </ul>
   </div>
 </section>
 <style>
-  .head { display: grid; gap: 16px; max-width: 720px; margin-bottom: 48px; }
-  .grid { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-  .item { padding: 28px; display: grid; gap: 10px; align-content: start; }
-  .item p { color: var(--text-2); }
-  .icon-tile { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; color: var(--accent); background: rgba(0, 217, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(0, 217, 255, 0.2); margin-bottom: 6px; }
-  @media (max-width: 999px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 639px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  .head { display: grid; gap: 16px; max-width: 760px; margin-bottom: 48px; }
+  .bento { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .tile { position: relative; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr; gap: 8px; padding: 12px 12px 28px; border-radius: var(--r-panel); background: linear-gradient(180deg, #131317, #0E0E11); box-shadow: inset 0 0 0 1px var(--line); }
+  .tile.wide { grid-column: span 2; }
+  .tile h3, .tile p { padding-inline: 16px; }
+  .tile h3 { margin-top: 12px; }
+  .tile p { color: var(--text-2); }
+  .art { position: relative; min-height: 200px; display: grid; place-items: center; border-radius: 20px; background: radial-gradient(120% 90% at 50% 0%, rgba(0, 217, 255, 0.10), rgba(0, 217, 255, 0) 60%), rgba(255, 255, 255, 0.015); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04); padding: 24px; overflow: hidden; }
+  .stackcol { display: grid; gap: 14px; justify-items: start; }
+
+  .reactions { position: relative; padding: 36px 44px; }
+  .reactions .react { position: absolute; font-size: 0.8125rem; height: 28px; padding: 0 10px; box-shadow: inset 0 0 0 1px var(--line-strong), 0 8px 20px rgba(0, 0, 0, 0.5); }
+  .r1 { top: 0; left: 8px; }
+  .r2 { top: 2px; right: 0; }
+  .r3 { bottom: 0; left: 30%; }
+  .r4 { bottom: 4px; right: 12%; }
+
+  .heard { display: flex; align-items: center; gap: 10px; }
+  .heard .meta { display: inline-flex; align-items: center; gap: 4px; }
+
+  .thread { display: grid; gap: 10px; }
+  .replies-col { display: grid; gap: 10px; margin-left: 18px; padding-left: 20px; border-left: 2px solid var(--line-strong); }
+
+  .photo-msg { display: flex; align-items: center; gap: 18px; padding: 12px; border-radius: 22px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); max-width: 100%; }
+  .photo-msg :global(.photo) { border-radius: 16px; flex: none; }
+
+  .timers { justify-items: center; }
+  .dial { display: flex; gap: 4px; padding: 4px; border-radius: var(--r-pill); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); }
+  .stop { height: 32px; min-width: 44px; padding: 0 10px; display: grid; place-items: center; border-radius: var(--r-pill); font-size: 0.8125rem; font-weight: 600; color: var(--text-3); }
+  .stop.on { background: var(--accent); color: #000; }
+
+  .online-row { display: flex; gap: 6px; }
+
+  @media (max-width: 999px) {
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* Two columns: timers pairs with "Online now" so the last row has no hole. */
+    .tile.pair-md { grid-column: auto; }
+  }
+  @media (max-width: 639px) {
+    .bento { grid-template-columns: minmax(0, 1fr); }
+    .tile.wide { grid-column: auto; }
+    .reactions { padding: 36px 24px; }
+    .photo-msg { flex-direction: column; align-items: flex-start; }
+  }
 </style>

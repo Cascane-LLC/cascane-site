@@ -11,14 +11,14 @@ import convos from '../assets/screens/convos_page.png';
 import channel from '../assets/screens/channel_info_page.png';
 import profile from '../assets/screens/profile_page.png';
 
-const details = [
-  { icon: 'smile', title: 'Reactions', text: 'Answer with an emoji when a voice message deserves one, and see who reacted with what.' },
-  { icon: 'reply', title: 'Threaded voice replies', text: 'Reply to one specific message. Replies stay threaded under it, so busy chats stay easy to follow.' },
-  { icon: 'headphones', title: 'Listen receipts', text: "Every message shows who's heard it, so you're never left wondering." },
-  { icon: 'image', title: 'Photo + voice', text: 'Attach a photo to any voice message and say what it is at the same time.' },
-  { icon: 'timer', title: 'Timers', text: "Pick a timer from 1 to 24 hours, or keep a message forever. When time's up, it's gone." },
-  { icon: 'circle-dot', title: 'Presence', text: "A green dot shows who's around right now." },
-];
+const details = {
+  reactions: 'Answer with an emoji when a voice message deserves one, and see who reacted with what.',
+  receipts: "Every message shows who's heard it, so you're never left wondering.",
+  replies: 'Reply to one specific message. Replies stay threaded under it, so busy chats stay easy to follow.',
+  photo: 'Attach a photo to any voice message and say what it is at the same time.',
+  timers: "Pick a timer from 1 to 24 hours, or keep a message forever. When time's up, it's gone.",
+  presence: "A green dot shows who's around right now.",
+};
 ---
 <Base title="Features · Cascane" description="Daily voice posts, DMs, group chats, Convos and Channels, plus reactions, voice replies and disappearing messages. See everything Cascane can do." path="/features">
   <section class="container page-top hero">
@@ -82,7 +82,7 @@ const details = [
     alt="The info page of a Channel with its description, hashtags, subscriber count and creator"
   />
 
-  <DetailGrid id="details" eyebrow="The details" title="Small things that make voice feel alive." items={details} />
+  <DetailGrid id="details" eyebrow="The details" title="More than a voice message." lead="Every message on Cascane can carry a reaction, a reply thread, a photo and a timer, and you always know who heard it." text={details} />
 
   <FeatureRow
     id="explore"
