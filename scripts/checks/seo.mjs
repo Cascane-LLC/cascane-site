@@ -33,6 +33,13 @@ export default function seo(ctx) {
     doc.querySelectorAll('img').forEach((img) => {
       if (!img.hasAttribute('alt')) errors.push(`${file}: <img src="${img.getAttribute('src')}"> has no alt`);
     });
+    if (file === 'safety.html') {
+      const text = doc.body.textContent;
+      for (const phrase of ['Spam or scam', 'Harassment or bullying', 'Hate speech or symbols', 'Violence or threats', 'Inappropriate content', 'Something else']) {
+        if (!text.includes(phrase)) errors.push(`safety.html: report category "${phrase}" missing`);
+      }
+      if (!doc.getElementById('tools')) errors.push('safety.html: #tools section missing');
+    }
   }
   if (!ctx.exists('og.png')) errors.push('og.png missing');
   if (!ctx.exists('sitemap-0.xml')) errors.push('sitemap-0.xml missing');

@@ -26,6 +26,8 @@ ul[class], ol[class] { list-style: none; padding: 0; }
 
 .container { width: 100%; max-width: calc(var(--max) + 2 * var(--gutter)); margin-inline: auto; padding-inline: var(--gutter); }
 .section { padding-block: var(--section); }
+/* Adjacent sections share one gap instead of stacking two paddings. */
+.section + .section { padding-top: 0; }
 .page-top { padding-top: calc(var(--nav-h) + clamp(48px, 9vw, 112px)); }
 
 .eyebrow { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
@@ -45,6 +47,8 @@ ul[class], ol[class] { list-style: none; padding: 0; }
 .btn-secondary { background: var(--surface-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--line-strong); }
 .btn-secondary:hover { background: #202026; }
 .btn-sm { height: 38px; padding: 0 16px; font-size: 0.875rem; }
+/* Narrow phones: let long button labels wrap instead of pushing the page sideways. */
+@media (max-width: 479px) { .btn { max-width: 100%; white-space: normal; height: auto; min-height: 48px; padding-block: 12px; text-align: center; } }
 
 .card { background: var(--surface-1); border-radius: var(--r-card); box-shadow: inset 0 0 0 1px var(--line); }
 
