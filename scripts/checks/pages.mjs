@@ -8,11 +8,12 @@ export const PAGES = {
   'terms.html': { path: '/terms', indexed: true },
   'privacy.html': { path: '/privacy', indexed: true },
   'child-safety.html': { path: '/child-safety', indexed: true },
+  'contact.html': { path: '/contact', indexed: true },
+  'delete-account.html': { path: '/delete-account', indexed: true },
+  'delete-account-received.html': { path: '/delete-account-received', indexed: false },
+  '404.html': { path: '/404', indexed: false },
 };
 
 export const LEGACY = {
   'index.html': { path: '/', indexed: true },
-  'contact.html': { path: '/contact', indexed: true },
-  'delete-account.html': { path: '/delete-account', indexed: true },
-  'delete-account-received.html': { path: '/delete-account-received', indexed: false },
 };
