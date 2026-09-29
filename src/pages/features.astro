@@ -12,7 +12,7 @@ import channel from '../assets/screens/channel_info_page.png';
 import profile from '../assets/screens/profile_page.png';
 
 const details = [
-  { icon: 'smile', title: 'Reactions', text: 'Answer with an emoji when a voice note deserves one, and see who reacted with what.' },
+  { icon: 'smile', title: 'Reactions', text: 'Answer with an emoji when a voice message deserves one, and see who reacted with what.' },
   { icon: 'reply', title: 'Threaded voice replies', text: 'Reply to one specific message. Replies stay threaded under it, so busy chats stay easy to follow.' },
   { icon: 'headphones', title: 'Listen receipts', text: "Every message shows who's heard it, so you're never left wondering." },
   { icon: 'image', title: 'Photo + voice', text: 'Attach a photo to any voice message and say what it is at the same time.' },
@@ -24,7 +24,7 @@ const details = [
   <section class="container page-top hero">
     <p class="eyebrow" data-reveal>Features</p>
     <h1 class="display" data-reveal style="--i:1">Everything you can say with Cascane.</h1>
-    <p class="lead" data-reveal style="--i:2">Cascane turns every message into a voice note: in your feed, your DMs, your group chats, and the conversations you start. Here's the whole tour.</p>
+    <p class="lead" data-reveal style="--i:2">Cascane turns every message into a voice message: in your feed, your DMs, your group chats, and the conversations you start. Here's the whole tour.</p>
     <nav class="jump" aria-label="Jump to a feature" data-reveal style="--i:3">
       {[['daily', 'Daily'], ['dms', 'DMs'], ['groups', 'Groups'], ['convos', 'Convos'], ['channels', 'Channels'], ['explore', 'Explore'], ['profiles', 'Profiles']].map(([id, label]) => <a class="chip-link" href={`#${id}`}>{label}</a>)}
     </nav>
@@ -65,7 +65,7 @@ const details = [
     id="convos"
     eyebrow="Convos"
     title="Ask the question. Hear every answer."
-    body="A Convo starts with a prompt, anything from a horror-movie debate to your craziest first day at work. People answer by voice, vote on the best, and pass it along to friends."
+    body="A Convo starts with a prompt, anything from a horror-movie debate to your craziest first day at work. People answer by voice, vote the Convo up or down, and pass it along to friends."
     points={['Add a title, description, photo and hashtags', 'Public, or private to your followers', 'Upvote and downvote', 'See who passed it to you']}
     image={convos}
     alt="The Convos tab listing prompts such as “What's one horror movie you'll never get tired of watching?”"
