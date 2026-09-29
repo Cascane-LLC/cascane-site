@@ -1,0 +1,18 @@
+---
+import '../../styles/illo.css';
+import AvatarBubble from '../AvatarBubble.astro';
+import VoicePill from '../VoicePill.astro';
+import Icon from '../Icon.astro';
+import ethan from '../../assets/avatars/ethan.png';
+---
+<div class="illo" aria-hidden="true">
+  <div class="illo-head">
+    <div class="row"><AvatarBubble src={ethan} size={36} online /><div class="who"><strong>Ethan Park</strong><span>Online now</span></div></div>
+  </div>
+  <div class="feed">
+    <div class="row"><VoicePill duration="0:14" seed={2} /></div>
+    <div class="row end"><VoicePill duration="0:09" seed={4} mine /></div>
+    <div class="row end"><span class="tick"><Icon name="check-check" size={14} />Listened</span></div>
+    <div class="row"><VoicePill duration="0:22" seed={6} /><span class="react">😂 2</span></div>
+  </div>
+</div>

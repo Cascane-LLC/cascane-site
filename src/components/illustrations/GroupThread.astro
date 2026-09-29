@@ -1,0 +1,22 @@
+---
+import '../../styles/illo.css';
+import AvatarBubble from '../AvatarBubble.astro';
+import VoicePill from '../VoicePill.astro';
+import austin from '../../assets/avatars/austin.png';
+import nate from '../../assets/avatars/nate.png';
+import natalie from '../../assets/avatars/natalie.png';
+---
+<div class="illo" aria-hidden="true">
+  <div class="illo-head">
+    <div class="row">
+      <span class="stack"><AvatarBubble src={austin} size={28} /><AvatarBubble src={nate} size={28} /><AvatarBubble src={natalie} size={28} /></span>
+      <div class="who"><strong>Weekend plans</strong><span>4 members</span></div>
+    </div>
+  </div>
+  <div class="feed">
+    <div class="row"><AvatarBubble src={austin} size={28} /><VoicePill duration="0:17" seed={7} bars={14} /></div>
+    <div class="row"><AvatarBubble src={nate} size={28} /><VoicePill duration="0:08" seed={13} bars={12} /><span class="react">🔥 3</span></div>
+    <div class="row end"><VoicePill duration="0:12" seed={5} bars={14} mine /></div>
+    <div class="row"><AvatarBubble src={natalie} size={28} ring="new" /><VoicePill duration="0:26" seed={3} bars={14} /></div>
+  </div>
+</div>

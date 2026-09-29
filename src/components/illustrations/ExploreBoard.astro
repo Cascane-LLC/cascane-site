@@ -1,0 +1,27 @@
+---
+import '../../styles/illo.css';
+import AvatarBubble from '../AvatarBubble.astro';
+import Icon from '../Icon.astro';
+import natalie from '../../assets/avatars/natalie.png';
+import nate from '../../assets/avatars/nate.png';
+import anna from '../../assets/avatars/anna.png';
+
+const voices = [
+  { img: natalie, name: 'Natalie Ashford', sub: 'Rising voice' },
+  { img: nate, name: 'Nate Callahan', sub: 'Trending now' },
+  { img: anna, name: 'Anna Brooks', sub: 'Joined recently' },
+];
+---
+<div class="illo" aria-hidden="true">
+  <div class="illo-head"><span class="illo-title">Explore</span><Icon name="search" size={18} /></div>
+  <p class="illo-label">Trending hashtags</p>
+  <div class="tags">
+    {['#music', '#horror', '#career', '#hiking', '#band', '#movies'].map((t) => <span class="tag">{t}</span>)}
+  </div>
+  <p class="illo-label">Popular voices</p>
+  <ul class="feed">
+    {voices.map((v) => (
+      <li class="row"><AvatarBubble src={v.img} size={36} /><div class="who grow"><strong>{v.name}</strong><span>{v.sub}</span></div><span class="follow">Follow</span></li>
+    ))}
+  </ul>
+</div>

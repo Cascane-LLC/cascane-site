@@ -6,6 +6,9 @@ import Waveform from '../components/Waveform.astro';
 import StoreBadges from '../components/StoreBadges.astro';
 import DownloadBand from '../components/DownloadBand.astro';
 import Icon from '../components/Icon.astro';
+import TypeSwitcher from '../components/TypeSwitcher.astro';
+import DetailGrid from '../components/DetailGrid.astro';
+import ExploreBoard from '../components/illustrations/ExploreBoard.astro';
 import chat from '../assets/screens/chat_page.png';
 import convos from '../assets/screens/convos_page.png';
 import inbox from '../assets/screens/inbox_page.png';
@@ -42,6 +45,15 @@ const safety = [
   { icon: 'flag', title: 'Report anything', text: 'Six report categories, reviewed by our team.', href: '/safety#reporting', cta: 'How reporting works' },
   { icon: 'lock', title: 'Zero tolerance for child exploitation', text: 'Substantiated reports mean removal, a permanent ban, and a report to NCMEC.', href: '/child-safety', cta: 'Child Safety Standards' },
 ];
+
+const details = [
+  { icon: 'smile', title: 'Reactions', text: 'React to any voice message with an emoji.' },
+  { icon: 'reply', title: 'Voice replies', text: 'Reply to a specific message and keep the thread together.' },
+  { icon: 'headphones', title: 'Who listened', text: 'See exactly who heard your message.' },
+  { icon: 'image', title: 'Photos', text: 'Attach a photo to any voice note.' },
+  { icon: 'timer', title: 'Disappearing messages', text: 'Set any message to vanish after 1–24 hours, or keep it forever.' },
+  { icon: 'circle-dot', title: 'Online now', text: 'See when your friends are around.' },
+];
 ---
 <Base
   title="Cascane — Voice-first social messaging"
@@ -72,6 +84,8 @@ const safety = [
       <Waveform bars={64} seed={11} animated class="why-wave" />
     </div>
   </section>
+
+  <TypeSwitcher />
 
   <FeatureRow
     eyebrow="Convos"
@@ -107,6 +121,18 @@ const safety = [
     alt="A Cascane profile with followers, a Cascane Score, Convos started and Channels"
     flip
   />
+
+  <DetailGrid eyebrow="The details" title="The details that make voice feel alive." items={details} />
+
+  <FeatureRow
+    id="explore"
+    eyebrow="Explore"
+    title="Find your people."
+    body="Trending Convos and Channels, Popular Voices, and hashtag pages for whatever you're into, all a tap away."
+    points={['Trending Convos and Channels', 'Popular Voices to follow', 'Hashtag pages for every interest']}
+  >
+    <ExploreBoard slot="media" />
+  </FeatureRow>
 
   <section class="section safety">
     <div class="container">

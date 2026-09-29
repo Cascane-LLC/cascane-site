@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+import Waveform from './Waveform.astro';
+
+interface Props { duration: string; seed?: number; bars?: number; mine?: boolean }
+const { duration, seed = 3, bars = 18, mine = false } = Astro.props;
+---
+<span class:list={['pill', { mine }]}>
+  <span class="play"><Icon name="play" size={14} /></span>
+  <Waveform bars={bars} seed={seed} />
+  <span class="dur">{duration}</span>
+</span>

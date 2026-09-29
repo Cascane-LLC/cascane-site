@@ -1,0 +1,23 @@
+---
+import '../../styles/illo.css';
+import AvatarBubble from '../AvatarBubble.astro';
+import Icon from '../Icon.astro';
+import austin from '../../assets/avatars/austin.png';
+import tyler from '../../assets/avatars/tyler.png';
+import anna from '../../assets/avatars/anna.png';
+import nate from '../../assets/avatars/nate.png';
+import ethan from '../../assets/avatars/ethan.png';
+---
+<div class="illo" aria-hidden="true">
+  <div class="row"><AvatarBubble src={austin} size={24} /><span class="meta"><strong>Austin Stanley</strong> · @astanley · 32 messages</span></div>
+  <p class="q">Do an impression of your favorite actor! Say the funniest thing they've ever said</p>
+  <div class="tags"><span class="tag">#impressions</span><span class="tag">#school</span><span class="tag">#actors</span></div>
+  <div class="row between" style="margin-top:16px">
+    <span class="meta">Received from Tyler · 12m</span>
+    <span class="votes"><span class="up"><Icon name="arrow-up" size={14} />87</span><span><Icon name="arrow-down" size={14} />3</span></span>
+  </div>
+  <div class="row" style="margin-top:18px">
+    <span class="stack"><AvatarBubble src={tyler} size={24} ring="new" /><AvatarBubble src={anna} size={24} /><AvatarBubble src={nate} size={24} /><AvatarBubble src={ethan} size={24} /></span>
+    <span class="meta">29 voice replies</span>
+  </div>
+</div>
